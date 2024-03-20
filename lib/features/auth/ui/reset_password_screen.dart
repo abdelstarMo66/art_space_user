@@ -27,7 +27,7 @@ class ResetPassword extends StatelessWidget {
               verticalSpace(50.0),
               Text(
                 "Reset Password",
-                style: TextStyleManager.font36DarkBlueSemiBold,
+                style: TextStyleManager.font36LightBlackSemiBold,
               ),
               verticalSpace(8.0),
               Text(
@@ -40,7 +40,8 @@ class ResetPassword extends StatelessWidget {
               AppTextButton(
                 buttonText: "Reset Password",
                 textStyle: TextStyleManager.font20OriginalWhiteSemiBold,
-                onPressed: () => context.pushNamedAndRemoveUntil(Routes.home,
+                onPressed: () => context.pushNamedAndRemoveUntil(
+                    Routes.bottomNavigationBar,
                     predicate: (Route<dynamic> route) => false),
               ),
             ],

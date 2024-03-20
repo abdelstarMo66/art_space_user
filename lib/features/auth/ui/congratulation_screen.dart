@@ -25,7 +25,7 @@ class _CongratulationScreenState extends State<CongratulationScreen> {
 
       Future.delayed(
           const Duration(seconds: 3),
-          () => context.pushNamedAndRemoveUntil(Routes.home,
+          () => context.pushNamedAndRemoveUntil(Routes.bottomNavigationBar,
               predicate: (Route<dynamic> route) => false));
     });
   }
@@ -57,7 +57,7 @@ class _CongratulationScreenState extends State<CongratulationScreen> {
                   Text("CONGRATS",
                       style: TextStyleManager.font36PurpleSemiBold),
                   Text("Thank You For Signing Up 🥳",
-                      style: TextStyleManager.font18DarkBlueSemiBold),
+                      style: TextStyleManager.font18LightBlackSemiBold),
                 ],
               ),
             ),

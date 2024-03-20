@@ -6,7 +6,8 @@ class ThemeManager {
     scaffoldBackgroundColor: ColorManager.originalWhite,
     appBarTheme: const AppBarTheme(
       elevation: 0.0,
-      backgroundColor: ColorManager.originalWhite,
+      scrolledUnderElevation: 0,
+      backgroundColor: ColorManager.transparent,
     ),
   );
 

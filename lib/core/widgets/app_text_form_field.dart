@@ -82,7 +82,7 @@ class AppTextFormField extends StatelessWidget {
       keyboardType: keyboardType,
       validator: (value) => validator(value),
       obscureText: isObscureText ?? false,
-      style: inputTextStyle ?? TextStyleManager.font14DarkBlueMedium,
+      style: inputTextStyle ?? TextStyleManager.font14LightBlackMedium,
     );
   }
 }

@@ -5,13 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  final List<Widget>? actions;
+  final Widget? title;
+
+  const CustomAppBar({super.key, this.actions, this.title});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: ColorManager.originalWhite,
       elevation: 0.0,
+      title: title,
+      centerTitle: true,
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
@@ -23,13 +28,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16.0))),
             child: SvgPicture.asset(
-              AssetsManager.icBackArrow,
+              AssetsManager.icArrowLeft,
               width: 65.0,
               height: 65.0,
             ),
           ),
         ),
       ),
+      actions: actions,
     );
   }
 

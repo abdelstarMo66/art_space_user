@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
               verticalSpace(30.0),
               Text(
                 "Login",
-                style: TextStyleManager.font36DarkBlueSemiBold,
+                style: TextStyleManager.font36LightBlackSemiBold,
               ),
               Text(
                 "Welcome Back In Art Space",
@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
               AppTextButton(
                 buttonText: "Login",
                 textStyle: TextStyleManager.font20OriginalWhiteSemiBold,
-                onPressed: () => context.pushNamedAndRemoveUntil(Routes.home,
+                onPressed: () => context.pushNamedAndRemoveUntil(Routes.bottomNavigationBar,
                     predicate: (Route<dynamic> route) => false),
               ),
               verticalSpace(24.0),
@@ -58,7 +58,7 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Don\'t have an account?',
-                    style: TextStyleManager.font14DarkBlueMedium,
+                    style: TextStyleManager.font14LightBlackMedium,
                   ),
                   TextButton(
                     onPressed: () =>

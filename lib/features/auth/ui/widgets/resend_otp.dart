@@ -44,7 +44,7 @@ class _ResendOTPState extends State<ResendOTP> {
         children: [
           Text(
             "Resend OTP In ${time}s",
-            style: TextStyleManager.font14DarkBlueMedium,
+            style: TextStyleManager.font14LightBlackMedium,
           ),
           verticalSpace(8.0),
           TextButton(

@@ -84,11 +84,11 @@ class _SplashScreenState extends State<SplashScreen>
                 text: TextSpan(children: [
                   TextSpan(
                     text: "Hi ",
-                    style: TextStyleManager.font42DarkBlueExtraBold,
+                    style: TextStyleManager.font42LightBlackExtraBold,
                   ),
                   TextSpan(
                     text: "!",
-                    style: TextStyleManager.font42DarkBlueExtraBold,
+                    style: TextStyleManager.font42LightBlackExtraBold,
                   ),
                 ]),
               ),
@@ -100,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                   TextSpan(
                     text: "Space",
-                    style: TextStyleManager.font32DarkBlueBold,
+                    style: TextStyleManager.font32LightBlackBold,
                   ),
                 ]),
               ),

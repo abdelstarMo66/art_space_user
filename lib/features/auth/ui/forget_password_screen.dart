@@ -27,7 +27,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               verticalSpace(30.0),
               Text(
                 "Forget Password?",
-                style: TextStyleManager.font36DarkBlueSemiBold,
+                style: TextStyleManager.font36LightBlackSemiBold,
               ),
               verticalSpace(8.0),
               Text(

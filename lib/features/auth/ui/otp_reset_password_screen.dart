@@ -25,7 +25,7 @@ class OtpResetPassword extends StatelessWidget {
             children: [
               Text(
                 "OTP Verify",
-                style: TextStyleManager.font36DarkBlueSemiBold,
+                style: TextStyleManager.font36LightBlackSemiBold,
               ),
               verticalSpace(8.0),
               Text(

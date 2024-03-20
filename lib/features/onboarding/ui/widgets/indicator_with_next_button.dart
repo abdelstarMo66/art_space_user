@@ -31,7 +31,7 @@ class IndicatorWithNextButton extends StatelessWidget {
           ),
           child: Text(
             'Next',
-            style: TextStyleManager.font18DarkBlueSemiBold,
+            style: TextStyleManager.font18LightBlackSemiBold,
           ),
         )
       ],

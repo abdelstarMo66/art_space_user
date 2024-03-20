@@ -17,7 +17,7 @@ class PageViewItem extends StatelessWidget {
       children: [
         Text(
           item.title,
-          style: TextStyleManager.font34DarkBlueRegular,
+          style: TextStyleManager.font34LightBlackRegular,
         ),
         verticalSpace(20.0),
         AspectRatio(

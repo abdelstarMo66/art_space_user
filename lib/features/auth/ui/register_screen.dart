@@ -27,7 +27,7 @@ class RegisterScreen extends StatelessWidget {
               verticalSpace(30.0),
               Text(
                 "Register",
-                style: TextStyleManager.font36DarkBlueSemiBold,
+                style: TextStyleManager.font36LightBlackSemiBold,
               ),
               Text(
                 "Welcome To You In Art Space",
@@ -41,7 +41,7 @@ class RegisterScreen extends StatelessWidget {
                   children: [
                     TextSpan(
                         text: "By Continuing, You agree to Our",
-                        style: TextStyleManager.font14DarkBlueMedium),
+                        style: TextStyleManager.font14LightBlackMedium),
                     TextSpan(
                         text: " Terms of Service",
                         style: TextStyleManager.font14DarkPurpleSemiBold),
@@ -61,7 +61,7 @@ class RegisterScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Already have an account?',
-                    style: TextStyleManager.font14DarkBlueMedium,
+                    style: TextStyleManager.font14LightBlackMedium,
                   ),
                   TextButton(
                     onPressed: () => context.pushReplacementNamed(Routes.login),

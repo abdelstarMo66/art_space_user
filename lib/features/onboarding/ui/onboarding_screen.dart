@@ -71,7 +71,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 onPressed: () => context.pushReplacementNamed(Routes.login),
                 child: Text(
                   'Skip',
-                  style: TextStyleManager.font18DarkBlueSemiBold,
+                  style: TextStyleManager.font18LightBlackSemiBold,
                 ),
               ),
             ),
