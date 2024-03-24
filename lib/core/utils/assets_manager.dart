@@ -53,6 +53,7 @@ class AssetsManager {
   static const String icLock = "${_icPath}ic_lock.svg";
   static const String icRemove = "${_icPath}ic_remove.svg";
   static const String icNoData = "${_icPath}ic_no_data.svg";
+  static const String icGallery = "${_icPath}ic_gallery.svg";
 
   // static const String icDownArrow = "${_icPath}ic_arrow_down.svg";
   // static const String icLocation = "${_icPath}ic_location.svg";

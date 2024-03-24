@@ -11,7 +11,7 @@ class ExploreExhibitions extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: CarouselSlider.builder(
-        itemCount: 5,
+        itemCount: 2,
         itemBuilder: (BuildContext context, int index, int pageViewIndex) =>
             const HomeExhibitionItem(),
         options: CarouselOptions(
@@ -19,7 +19,7 @@ class ExploreExhibitions extends StatelessWidget {
           aspectRatio: 16 / 9,
           viewportFraction: 0.8,
           initialPage: 0,
-          // enableInfiniteScroll: true,
+          enableInfiniteScroll: false,
           // reverse: false,
           // autoPlay: true,
           autoPlayInterval: const Duration(seconds: 4),

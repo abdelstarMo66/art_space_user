@@ -1,5 +1,5 @@
 import 'package:art_space_user/features/cart/ui/cart_screen.dart';
-import 'package:art_space_user/features/favourite/ui/favourite_screen.dart';
+import 'package:art_space_user/features/gallery/ui/gallery_screen.dart';
 import 'package:art_space_user/features/home/ui/home_screen.dart';
 import 'package:art_space_user/features/profile/ui/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -13,19 +13,19 @@ class AppCubit extends Cubit<AppState> {
 
   List<String> bottomNavBarIcons = [
     AssetsManager.icHome,
-    AssetsManager.icAdd,
+    AssetsManager.icGallery,
     AssetsManager.icCart,
     AssetsManager.icProfile,
   ];
   List<String> bottomNavBarTexts = const [
     "Home",
-    "Favourite",
+    "Gallery",
     "Cart",
     "Profile",
   ];
   List<Widget> bottomNavBarBody = const [
     HomeScreen(),
-    FavoriteScreen(),
+    GalleryScreen(),
     CartScreen(),
     ProfileScreen(),
   ];
