@@ -13,10 +13,6 @@ class ResetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 14.0),
         child: SingleChildScrollView(

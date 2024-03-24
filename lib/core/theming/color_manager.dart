@@ -4,6 +4,7 @@ class ColorManager {
   static const Color transparent = Color(0x00000000);
   static const Color originalBlack = Color(0xFF000000);
   static const Color originalWhite = Color(0xFFFFFFFF);
+  static const Color scaffold = Color(0xFFF7F7F9);
 
   static const Color purple = Color(0xFF6C63FF);
   static const Color dartPurple = Color(0xFF7469B6);

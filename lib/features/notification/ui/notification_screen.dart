@@ -1,51 +1,34 @@
+import 'package:art_space_user/core/helpers/spacing.dart';
+import 'package:art_space_user/core/theming/color_manager.dart';
 import 'package:art_space_user/core/theming/text_style_manager.dart';
-import 'package:art_space_user/core/utils/assets_manager.dart';
+import 'package:art_space_user/core/widgets/no_thing.dart';
+import 'package:art_space_user/features/notification/ui/widgets/notification_item.dart';
 import 'package:flutter/material.dart';
-import 'package:gif/gif.dart';
 
 import '../../../core/widgets/custom_app_bar.dart';
 
-class NotificationScreen extends StatefulWidget {
+class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
-
-  @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
-}
-
-class _NotificationScreenState extends State<NotificationScreen>
-    with TickerProviderStateMixin {
-  late GifController controller;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = GifController(vsync: this);
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.scaffold,
       appBar: CustomAppBar(
         title: Text(
           "Notifications",
           style: TextStyleManager.font24OLightBlackSemiBold,
         ),
       ),
-      body: Center(
-        child: Gif(
-          image: const AssetImage(AssetsManager.gifOne),
-          controller: controller,
-          fps: 15,
-          fit: BoxFit.cover,
-          width: 300.0,
-          height: 300.0,
-          autostart: Autostart.loop,
-          onFetchCompleted: () {
-            controller.reset();
-            controller.forward();
-          },
-        ),
+      body: ListView.separated(
+        padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (context, index) =>
+            NotificationItem(isRead: index > 3 ? true : false),
+        separatorBuilder: (context, index) => verticalSpace(12.0),
+        itemCount: 8,
       ),
+      // body: NoThingWidget(),
     );
   }
 }

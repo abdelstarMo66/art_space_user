@@ -1,3 +1,4 @@
+import 'package:art_space_user/core/theming/color_manager.dart';
 import 'package:art_space_user/core/widgets/app_elevated_button.dart';
 import 'package:art_space_user/core/widgets/custom_app_bar.dart';
 import 'package:art_space_user/features/exhibitions/ui/widgets/exhibition_filter_dialog.dart';
@@ -17,12 +18,8 @@ class ExhibitionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F7F9),
+      backgroundColor: ColorManager.scaffold,
       appBar: CustomAppBar(
-        title: Text(
-          "Exhibitions",
-          style: TextStyleManager.font24OLightBlackSemiBold,
-        ),
         actions: [
           AppElevatedButton(
             buttonWidth: 40.0,

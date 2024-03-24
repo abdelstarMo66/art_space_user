@@ -4,6 +4,7 @@ import 'package:art_space_user/core/networking/local/shared_preferences.dart';
 import 'package:art_space_user/core/routing/routes.dart';
 import 'package:art_space_user/core/theming/text_style_manager.dart';
 import 'package:art_space_user/core/utils/assets_manager.dart';
+import 'package:art_space_user/core/widgets/custom_app_bar.dart';
 import 'package:art_space_user/features/onboarding/ui/widgets/indicator_with_next_button.dart';
 import 'package:art_space_user/features/onboarding/ui/widgets/page_view_item.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: CustomAppBar(
         actions: [
           if (pageIndex != onboardingItems.length - 1)
             Padding(

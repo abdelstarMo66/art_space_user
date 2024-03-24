@@ -127,6 +127,13 @@ class TextStyleManager {
     fontFamily: VariableManager.fontFamily,
   );
 
+  static TextStyle font18PurpleRegular = TextStyle(
+    fontSize: FontSizeManager.s18,
+    fontWeight: FontWeightManager.regular,
+    color: ColorManager.purple,
+    fontFamily: VariableManager.fontFamily,
+  );
+
   static TextStyle font20OriginalWhiteSemiBold = TextStyle(
     fontSize: FontSizeManager.s20,
     color: ColorManager.originalWhite,

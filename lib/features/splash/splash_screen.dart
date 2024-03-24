@@ -67,10 +67,6 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
       backgroundColor: ColorManager.purple,
       body: CircularRevealAnimation(
         animation: animation,

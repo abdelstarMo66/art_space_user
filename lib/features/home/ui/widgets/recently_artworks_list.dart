@@ -1,4 +1,4 @@
-import 'package:art_space_user/features/home/ui/widgets/artwork_item.dart';
+import 'package:art_space_user/features/home/ui/widgets/home_artwork_item.dart';
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -37,7 +37,7 @@ class _RecentlyArtworksListState extends State<RecentlyArtworksList> {
             opacity: animation,
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.0),
-              child: ArtworkItem(),
+              child: HomeArtworkItem(),
             ),
           ),
         );

@@ -31,4 +31,10 @@ class Routes {
   static const String communityGuidelines = "communityGuidelines";
   static const String termsOfUse = "termsOfUse";
   static const String addAddress = "addAddress";
+
+  // Exhibition
+  static const String exhibitionDetails = "exhibitionDetails";
+
+  // Artwork
+  static const String artworkDetails = "artworkDetails";
 }

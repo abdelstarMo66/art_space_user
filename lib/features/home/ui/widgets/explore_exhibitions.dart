@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'exhibition_item.dart';
+import 'home_exhibition_item.dart';
 
 class ExploreExhibitions extends StatelessWidget {
   const ExploreExhibitions({super.key});
@@ -13,7 +13,7 @@ class ExploreExhibitions extends StatelessWidget {
       child: CarouselSlider.builder(
         itemCount: 5,
         itemBuilder: (BuildContext context, int index, int pageViewIndex) =>
-            const ExhibitionItem(),
+            const HomeExhibitionItem(),
         options: CarouselOptions(
           height: 240.0.h,
           aspectRatio: 16 / 9,

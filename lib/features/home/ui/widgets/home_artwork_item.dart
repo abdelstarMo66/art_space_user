@@ -7,8 +7,8 @@ import '../../../../core/theming/color_manager.dart';
 import '../../../../core/theming/text_style_manager.dart';
 import '../../../../core/utils/assets_manager.dart';
 
-class ArtworkItem extends StatelessWidget {
-  const ArtworkItem({super.key});
+class HomeArtworkItem extends StatelessWidget {
+  const HomeArtworkItem({super.key});
 
   @override
   Widget build(BuildContext context) {

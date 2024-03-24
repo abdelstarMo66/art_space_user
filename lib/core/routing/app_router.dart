@@ -2,6 +2,7 @@ import 'package:art_space_user/core/app_cubit/app_cubit.dart';
 import 'package:art_space_user/core/di/dependency_injection.dart';
 import 'package:art_space_user/core/routing/animation_route.dart';
 import 'package:art_space_user/core/routing/routes.dart';
+import 'package:art_space_user/features/artworks/ui/artwork_details_screen.dart';
 import 'package:art_space_user/features/artworks/ui/artworks_screen.dart';
 import 'package:art_space_user/features/auth/ui/forget_password_screen.dart';
 import 'package:art_space_user/features/auth/ui/login_screen.dart';
@@ -9,6 +10,7 @@ import 'package:art_space_user/features/auth/ui/otp_reset_password_screen.dart';
 import 'package:art_space_user/features/auth/ui/register_screen.dart';
 import 'package:art_space_user/features/auth/ui/reset_password_screen.dart';
 import 'package:art_space_user/features/bottom_navigation_bar/bottom_navigation_bar_screen.dart';
+import 'package:art_space_user/features/exhibitions/ui/exhibition_details_screen.dart';
 import 'package:art_space_user/features/exhibitions/ui/exhibitions_screen.dart';
 import 'package:art_space_user/features/notification/ui/notification_screen.dart';
 import 'package:art_space_user/features/onboarding/ui/onboarding_screen.dart';
@@ -88,6 +90,12 @@ class AppRouter {
         return AnimationRoute(page: const TermsOfUseScreen());
       case Routes.addAddress:
         return AnimationRoute(page: const AddAddressScreen());
+      // Exhibition
+      case Routes.exhibitionDetails:
+        return AnimationRoute(page: const ExhibitionDetailsScreen());
+      // Artwork
+      case Routes.artworkDetails:
+        return AnimationRoute(page: const ArtworkDetailsScreen());
       default:
         return unDefinitionRoute(settings);
     }

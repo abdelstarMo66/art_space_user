@@ -2,10 +2,10 @@ import 'package:art_space_user/core/theming/color_manager.dart';
 import 'package:art_space_user/features/artworks/ui/widgets/artwork_item.dart';
 import 'package:art_space_user/features/artworks/ui/widgets/sort_and_filter_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../core/theming/text_style_manager.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/custom_app_bar.dart';
 import 'widgets/artwork_filter_dialog.dart';
@@ -21,12 +21,7 @@ class ArtworksScreen extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       drawer: const ArtworkFilterDialog(),
-      appBar:  CustomAppBar(
-        title: Text(
-          "Artworks",
-          style: TextStyleManager.font24OLightBlackSemiBold,
-        ),
-      ),
+      appBar: CustomAppBar(),
       floatingActionButton: Container(
         margin: const EdgeInsetsDirectional.only(bottom: 16.0, end: 12.0),
         child: FloatingActionButton(
@@ -57,16 +52,29 @@ class ArtworksScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           slivers: [
             SliverFillRemaining(
-              child: MasonryGridView.count(
-                controller: scrollController,
-                crossAxisCount: 2,
-                mainAxisSpacing: 22.0,
-                crossAxisSpacing: 12.0,
-                itemCount: 20,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => index == 0
-                    ? SortAndFilterButton(scaffoldKey: scaffoldKey)
-                    : const ArtworkItem(),
+              child: AnimationLimiter(
+                child: MasonryGridView.count(
+                  controller: scrollController,
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 22.0,
+                  crossAxisSpacing: 12.0,
+                  itemCount: 20,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) => index == 0
+                      ? SortAndFilterButton(scaffoldKey: scaffoldKey)
+                      : AnimationConfiguration.staggeredGrid(
+                          position: index,
+                          duration: const Duration(milliseconds: 500),
+                          columnCount: 2,
+                          child: const ScaleAnimation(
+                            duration: Duration(milliseconds: 900),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            child: FadeInAnimation(
+                              child: ArtworkItem(),
+                            ),
+                          ),
+                        ),
+                ),
               ),
             ),
           ],

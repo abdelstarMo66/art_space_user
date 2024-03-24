@@ -33,10 +33,6 @@ class _CongratulationScreenState extends State<CongratulationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
       body: Stack(
         children: [
           Image.asset(

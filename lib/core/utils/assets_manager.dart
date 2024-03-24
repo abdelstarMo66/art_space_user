@@ -12,6 +12,8 @@ class AssetsManager {
       "${_imgPath}img_onboarding_easy_access.svg";
   static const String imgOnboardingPage4 =
       "${_imgPath}onboarding_ar_in_home.svg";
+  static const String imgImageNotFound =
+      "${_imgPath}img_image_not_found.jpg";
 
   // GIFs
   static const String gifOne = "${_gifPath}404.gif";
@@ -50,9 +52,9 @@ class AssetsManager {
   static const String icCheck = "${_icPath}ic_check.svg";
   static const String icLock = "${_icPath}ic_lock.svg";
   static const String icRemove = "${_icPath}ic_remove.svg";
+  static const String icNoData = "${_icPath}ic_no_data.svg";
 
   // static const String icDownArrow = "${_icPath}ic_arrow_down.svg";
-  // static const String icVr = "${_icPath}ic_vr.svg";
   // static const String icLocation = "${_icPath}ic_location.svg";
   // static const String icSettings = "${_icPath}ic_setting.svg";
   // static const String icCall = "${_icPath}ic_call.svg";

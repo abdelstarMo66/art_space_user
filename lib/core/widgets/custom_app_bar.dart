@@ -2,19 +2,34 @@ import 'package:art_space_user/core/helpers/extensions.dart';
 import 'package:art_space_user/core/theming/color_manager.dart';
 import 'package:art_space_user/core/utils/assets_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final Widget? title;
+  final Color? bgColor;
+  final SystemUiOverlayStyle? systemUiOverlayStyle;
 
-  const CustomAppBar({super.key, this.actions, this.title});
+  const CustomAppBar({
+    super.key,
+    this.actions,
+    this.title,
+    this.bgColor,
+    this.systemUiOverlayStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: ColorManager.originalWhite,
+      backgroundColor: bgColor ?? ColorManager.originalWhite,
       elevation: 0.0,
+      systemOverlayStyle: systemUiOverlayStyle ??
+          const SystemUiOverlayStyle(
+            statusBarColor: ColorManager.originalWhite,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark,
+          ),
       title: title,
       centerTitle: true,
       leading: Padding(
