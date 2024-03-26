@@ -1,11 +1,11 @@
 import 'package:art_space_user/core/helpers/extensions.dart';
 import 'package:art_space_user/core/routing/routes.dart';
+import 'package:art_space_user/features/auth/ui/widgets/register_bloc_listener.dart';
 import 'package:art_space_user/features/auth/ui/widgets/register_form.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/text_style_manager.dart';
-import '../../../core/widgets/app_text_button.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -45,12 +45,7 @@ class RegisterScreen extends StatelessWidget {
                 ),
               ),
               verticalSpace(12.0),
-              AppTextButton(
-                buttonText: "Register",
-                textStyle: TextStyleManager.font20OriginalWhiteSemiBold,
-                onPressed: () =>
-                    context.pushReplacementNamed(Routes.otpVerifyAccount),
-              ),
+              const RegisterBlocListener(),
               verticalSpace(24.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

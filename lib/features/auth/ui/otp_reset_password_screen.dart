@@ -1,16 +1,18 @@
-import 'package:art_space_user/core/helpers/extensions.dart';
 import 'package:art_space_user/core/widgets/custom_app_bar.dart';
+import 'package:art_space_user/features/auth/logic/forget_password/forget_password_cubit.dart';
 import 'package:art_space_user/features/auth/ui/widgets/custom_pin_code_text_Field.dart';
-import 'package:art_space_user/features/auth/ui/widgets/resend_otp.dart';
+import 'package:art_space_user/features/auth/ui/widgets/resend_otp_verify_code.dart';
+import 'package:art_space_user/features/auth/ui/widgets/verify_code_bloc_listener.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/helpers/spacing.dart';
-import '../../../core/routing/routes.dart';
 import '../../../core/theming/text_style_manager.dart';
-import '../../../core/widgets/app_text_button.dart';
 
 class OtpResetPassword extends StatelessWidget {
-  const OtpResetPassword({super.key});
+  final String email;
+
+  const OtpResetPassword({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +35,15 @@ class OtpResetPassword extends StatelessWidget {
                 style: TextStyleManager.font18GrayRegular,
               ),
               verticalSpace(50.0),
-              const CustomPinCodeTextField(),
-              verticalSpace(60.0),
-              AppTextButton(
-                buttonText: "Verify",
-                textStyle: TextStyleManager.font20OriginalWhiteSemiBold,
-                onPressed: () => context.pushNamedAndRemoveUntil(
-                    Routes.resetPassword,
-                    predicate: (Route<dynamic> route) => false),
+              CustomPinCodeTextField(
+                formKey: context.read<ForgetPasswordCubit>().verifyFormKey,
+                controller: context.read<ForgetPasswordCubit>().otpController,
               ),
+              verticalSpace(60.0),
+              VerifyCodeBlocListener(email: email),
               verticalSpace(40.0),
-              const ResendOTP(),
+              // TODO: cubit
+              ResendOTPVerifyCode(email: email),
             ],
           ),
         ),

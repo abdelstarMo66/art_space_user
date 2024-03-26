@@ -19,6 +19,9 @@ class FormItem extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType keyboardType;
   final Function(String?) validator;
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
+  final Function()? editAction;
 
   const FormItem({
     super.key,
@@ -36,6 +39,9 @@ class FormItem extends StatelessWidget {
     this.controller,
     required this.validator,
     required this.keyboardType,
+    this.focusNode,
+    this.textInputAction,
+    this.editAction,
   });
 
   @override
@@ -62,6 +68,9 @@ class FormItem extends StatelessWidget {
           backGroundColor: backGroundColor,
           contentPadding: contentPadding,
           keyboardType: keyboardType,
+          focusNode: focusNode,
+          textInputAction: textInputAction,
+          editAction: editAction,
         ),
       ],
     );

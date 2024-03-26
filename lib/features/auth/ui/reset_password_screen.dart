@@ -1,14 +1,14 @@
-import 'package:art_space_user/core/helpers/extensions.dart';
+import 'package:art_space_user/features/auth/ui/widgets/reset_password_bloc_listener.dart';
 import 'package:art_space_user/features/auth/ui/widgets/reset_password_form.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/helpers/spacing.dart';
-import '../../../core/routing/routes.dart';
 import '../../../core/theming/text_style_manager.dart';
-import '../../../core/widgets/app_text_button.dart';
 
 class ResetPassword extends StatelessWidget {
-  const ResetPassword({super.key});
+  final String email;
+
+  const ResetPassword({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +33,7 @@ class ResetPassword extends StatelessWidget {
               verticalSpace(50.0),
               const ResetPasswordForm(),
               verticalSpace(40.0),
-              AppTextButton(
-                buttonText: "Reset Password",
-                textStyle: TextStyleManager.font20OriginalWhiteSemiBold,
-                onPressed: () => context.pushNamedAndRemoveUntil(
-                    Routes.bottomNavigationBar,
-                    predicate: (Route<dynamic> route) => false),
-              ),
+              ResetPasswordBlocListener(email: email),
             ],
           ),
         ),

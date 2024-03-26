@@ -4,6 +4,9 @@ import 'package:art_space_user/core/routing/animation_route.dart';
 import 'package:art_space_user/core/routing/routes.dart';
 import 'package:art_space_user/features/artworks/ui/artwork_details_screen.dart';
 import 'package:art_space_user/features/artworks/ui/artworks_screen.dart';
+import 'package:art_space_user/features/auth/logic/forget_password/forget_password_cubit.dart';
+import 'package:art_space_user/features/auth/logic/login/login_cubit.dart';
+import 'package:art_space_user/features/auth/logic/register/register_cubit.dart';
 import 'package:art_space_user/features/auth/ui/forget_password_screen.dart';
 import 'package:art_space_user/features/auth/ui/login_screen.dart';
 import 'package:art_space_user/features/auth/ui/otp_reset_password_screen.dart';
@@ -24,12 +27,12 @@ import 'package:art_space_user/features/profile/ui/report_problem_screen.dart';
 import 'package:art_space_user/features/profile/ui/terms_of_use_screen.dart';
 import 'package:art_space_user/features/profile/ui/your_order_screen.dart';
 import 'package:art_space_user/features/search/ui/search_screen.dart';
-import 'package:art_space_user/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/auth/ui/congratulation_screen.dart';
 import '../../features/auth/ui/otp_verify_account_screen.dart';
+import '../../features/splash/splash_screen.dart';
 
 class AppRouter {
   Route generateRoute(RouteSettings settings) {
@@ -39,21 +42,53 @@ class AppRouter {
         return AnimationRoute(page: const SplashScreen());
       case Routes.onboarding:
         return AnimationRoute(page: const OnboardingScreen());
+
       // Authorization
       case Routes.login:
-        return AnimationRoute(page: const LoginScreen());
+        return AnimationRoute(
+          page: BlocProvider(
+            create: (BuildContext context) => getIt<LoginCubit>(),
+            child: const LoginScreen(),
+          ),
+        );
       case Routes.forgetPassword:
-        return AnimationRoute(page: const ForgetPasswordScreen());
+        return AnimationRoute(
+          page: BlocProvider(
+            create: (BuildContext context) => getIt<ForgetPasswordCubit>(),
+            child: const ForgetPasswordScreen(),
+          ),
+        );
       case Routes.otpResetPassword:
-        return AnimationRoute(page: const OtpResetPassword());
+        return AnimationRoute(
+          page: BlocProvider(
+            create: (BuildContext context) => getIt<ForgetPasswordCubit>(),
+            child: OtpResetPassword(email: settings.arguments as String),
+          ),
+        );
       case Routes.resetPassword:
-        return AnimationRoute(page: const ResetPassword());
+        return AnimationRoute(
+          page: BlocProvider(
+            create: (BuildContext context) => getIt<ForgetPasswordCubit>(),
+            child: ResetPassword(email: settings.arguments as String),
+          ),
+        );
       case Routes.register:
-        return AnimationRoute(page: const RegisterScreen());
+        return AnimationRoute(
+          page: BlocProvider(
+            create: (BuildContext context) => getIt<RegisterCubit>(),
+            child: const RegisterScreen(),
+          ),
+        );
       case Routes.otpVerifyAccount:
-        return AnimationRoute(page: const OTPVerifyAccount());
+        return AnimationRoute(
+          page: BlocProvider(
+            create: (BuildContext context) => getIt<RegisterCubit>(),
+            child: OTPVerifyAccount(email: settings.arguments as String),
+          ),
+        );
       case Routes.congratulation:
         return AnimationRoute(page: const CongratulationScreen());
+
       // BottomNavBar
       case Routes.bottomNavigationBar:
         return AnimationRoute(
@@ -62,6 +97,7 @@ class AppRouter {
             child: const BottomNavigationBarScreen(),
           ),
         );
+
       // Home
       case Routes.notification:
         return AnimationRoute(page: const NotificationScreen());
@@ -90,9 +126,11 @@ class AppRouter {
         return AnimationRoute(page: const TermsOfUseScreen());
       case Routes.addAddress:
         return AnimationRoute(page: const AddAddressScreen());
+
       // Exhibition
       case Routes.exhibitionDetails:
         return AnimationRoute(page: const ExhibitionDetailsScreen());
+
       // Artwork
       case Routes.artworkDetails:
         return AnimationRoute(page: const ArtworkDetailsScreen());

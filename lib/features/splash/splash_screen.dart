@@ -54,13 +54,18 @@ class _SplashScreenState extends State<SplashScreen>
           bool? isOnboarding =
               SharedPreferencesManager.getData(key: PrefsManager.onboarding);
 
+          String? token =
+              SharedPreferencesManager.getData(key: PrefsManager.token);
 
           if (isOnboarding != null) {
-            context.pushReplacementNamed(Routes.login);
+            if (token != null) {
+              context.pushReplacementNamed(Routes.bottomNavigationBar);
+            } else {
+              context.pushReplacementNamed(Routes.login);
+            }
           } else {
             context.pushReplacementNamed(Routes.onboarding);
           }
-
         });
       });
 

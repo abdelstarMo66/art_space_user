@@ -56,8 +56,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
     _crossFadeState = CrossFadeState.showFirst;
 
-    SharedPreferencesManager.saveData(key: PrefsManager.onboarding, value: true)
-        .then((value) => {debugPrint("onBoarding $value")});
+    SharedPreferencesManager.saveData(key: PrefsManager.onboarding, value: true);
   }
 
   @override

@@ -1,4 +1,6 @@
 import 'package:art_space_user/core/helpers/extensions.dart';
+import 'package:art_space_user/core/networking/local/prefs_manager.dart';
+import 'package:art_space_user/core/networking/local/shared_preferences.dart';
 import 'package:art_space_user/features/profile/ui/widgets/profile_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -29,8 +31,11 @@ class AboutSection extends StatelessWidget {
           onTap: () => context.pushNamed(Routes.termsOfUse),
         ),
         ElevatedButton(
-          onPressed: () => context.pushNamedAndRemoveUntil(Routes.login,
-              predicate: (Route<dynamic> route) => false),
+          onPressed: () {
+            SharedPreferencesManager.removeData(key: PrefsManager.token);
+            context.pushNamedAndRemoveUntil(Routes.login,
+                predicate: (Route<dynamic> route) => false);
+          },
           style: ElevatedButton.styleFrom(
               backgroundColor: ColorManager.originalWhite,
               shadowColor: ColorManager.transparent,
