@@ -10,6 +10,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;
   final Color? bgColor;
   final SystemUiOverlayStyle? systemUiOverlayStyle;
+  final void Function()? onTap;
 
   const CustomAppBar({
     super.key,
@@ -17,6 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.bgColor,
     this.systemUiOverlayStyle,
+    this.onTap,
   });
 
   @override
@@ -36,7 +38,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           borderRadius: BorderRadius.circular(16.0),
-          onTap: () => context.pop(),
+          onTap: onTap ??
+              () {
+                context.pop();
+              },
           child: Container(
             decoration: ShapeDecoration(
                 color: ColorManager.lighterGray,

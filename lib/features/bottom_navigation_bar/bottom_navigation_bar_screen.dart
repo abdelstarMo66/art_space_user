@@ -1,6 +1,7 @@
 import 'package:art_space_user/core/app_cubit/app_cubit.dart';
 import 'package:art_space_user/core/app_cubit/app_state.dart';
 import 'package:art_space_user/core/theming/text_style_manager.dart';
+import 'package:art_space_user/features/profile/logic/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';

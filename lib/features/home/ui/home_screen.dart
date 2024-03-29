@@ -5,7 +5,9 @@ import 'package:art_space_user/features/home/ui/widgets/header.dart';
 import 'package:art_space_user/features/home/ui/widgets/recently_artworks_list.dart';
 import 'package:art_space_user/features/home/ui/widgets/search.dart';
 import 'package:art_space_user/features/home/ui/widgets/title_of_list.dart';
+import 'package:art_space_user/features/profile/logic/profile_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/routing/routes.dart';
 

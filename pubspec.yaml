@@ -71,6 +71,7 @@ dependencies:
   country_state_city_pro: ^0.0.6
   flutter_staggered_animations: ^1.1.1
   animated_snack_bar: ^0.4.0
+  http_parser: ^4.0.2
 
 
 dev_dependencies:

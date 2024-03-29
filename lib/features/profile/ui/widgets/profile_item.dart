@@ -9,7 +9,7 @@ import '../../../../core/theming/text_style_manager.dart';
 
 class ProfileItem extends StatelessWidget {
   final String title, icon;
-  final VoidCallback onTap;
+  final void Function()? onTap;
 
   const ProfileItem({
     super.key,

@@ -1,5 +1,8 @@
 import 'package:art_space_user/core/helpers/extensions.dart';
+import 'package:art_space_user/features/profile/data/models/response/get_profile_response.dart';
+import 'package:art_space_user/features/profile/logic/profile_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/theming/color_manager.dart';
@@ -7,7 +10,9 @@ import '../../../../core/theming/text_style_manager.dart';
 import '../../../../core/utils/assets_manager.dart';
 
 class AddressItem extends StatelessWidget {
-  const AddressItem({super.key});
+  final Address address;
+
+  const AddressItem({super.key, required this.address});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +23,13 @@ class AddressItem extends StatelessWidget {
         width: 32.0,
       ),
       title: Text(
-        "Qalyubia, Shobra El-Khima",
+        "${address.city}, ${address.region}",
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: TextStyleManager.font18LightBlackSemiBold,
       ),
       subtitle: Text(
-        "16 El-Bostan Street, +201050609664",
+        "${address.street}, ${address.phone ?? ''}",
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: TextStyleManager.font14LightGrayMedium,
@@ -54,7 +59,12 @@ class AddressItem extends StatelessWidget {
         "Continue",
         style: TextStyleManager.font16DarkPurpleMedium,
       ),
-      onPressed: () {},
+      onPressed: () {
+        context
+            .read<ProfileCubit>()
+            .emitDeleteAddressState(addressId: address.id);
+        context.pop();
+      },
     );
 
     AlertDialog alert = AlertDialog(

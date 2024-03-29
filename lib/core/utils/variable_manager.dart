@@ -13,6 +13,17 @@ class ApiConstants {
   static const String register = "userAuth/signup";
   static const String verifyEmail = "userAuth/verifyEmail";
   static const String resendCode = "userAuth/resendCode";
+
+  // Profile
+  static const String getProfile = "users/getProfile";
+  static const String changePassword = "users/changePassword";
+  static const String updateProfile = "users/updateProfile";
+  static const String updateImage = "users/updateImage";
+  static const String address = "users/address";
+  static const String removeAddress = "users/address/{addressId}";
+
+  // Search
+  static const String search = "search/user";
 }
 
 class ApiErrors {
