@@ -1,4 +1,5 @@
 import 'package:art_space_user/core/helpers/extensions.dart';
+import 'package:art_space_user/features/artworks/logic/artwork_cubit.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/helpers/spacing.dart';
@@ -6,17 +7,19 @@ import '../../../../core/theming/color_manager.dart';
 import '../../../../core/theming/text_style_manager.dart';
 import '../../../../core/widgets/app_text_button.dart';
 
-enum ArtworkSortEnum { highPrice, lowPrice, ascTitle, descTitle }
+enum ArtworkSortEnum { highPrice, lowPrice }
 
 class ArtworkSortDialog extends StatefulWidget {
-  const ArtworkSortDialog({super.key});
+  final ArtworkCubit cubit;
+
+  const ArtworkSortDialog({super.key, required this.cubit});
 
   @override
   State<ArtworkSortDialog> createState() => _ArtworkSortDialogState();
 }
 
 class _ArtworkSortDialogState extends State<ArtworkSortDialog> {
-  ArtworkSortEnum? exhibitionSortEnum;
+  static ArtworkSortEnum? exhibitionSortEnum;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +47,7 @@ class _ArtworkSortDialogState extends State<ArtworkSortDialog> {
               TextButton(
                 onPressed: () {
                   exhibitionSortEnum = null;
+                  widget.cubit.emitGetAllArtworksState();
                   context.pop();
                 },
                 child: Text(
@@ -54,16 +58,6 @@ class _ArtworkSortDialogState extends State<ArtworkSortDialog> {
             ],
           ),
           const Divider(height: 20.0, thickness: 0.8),
-          sortItem(
-            title: "Name",
-            subTitle: "A - Z",
-            value: ArtworkSortEnum.ascTitle,
-          ),
-          sortItem(
-            title: "Name",
-            subTitle: "Z - A",
-            value: ArtworkSortEnum.descTitle,
-          ),
           sortItem(
             title: "Price",
             subTitle: "Low to High",
@@ -93,7 +87,15 @@ class _ArtworkSortDialogState extends State<ArtworkSortDialog> {
                   child: AppTextButton(
                     buttonText: "Apply",
                     textStyle: TextStyleManager.font20OriginalWhiteSemiBold,
-                    onPressed: () {},
+                    onPressed: () {
+                      widget.cubit.emitGetAllArtworksState(
+                          sort: exhibitionSortEnum == ArtworkSortEnum.highPrice
+                              ? "-price"
+                              : exhibitionSortEnum == ArtworkSortEnum.lowPrice
+                                  ? "price"
+                                  : "");
+                      context.pop();
+                    },
                     borderRadius: 12.0,
                   ),
                 ),

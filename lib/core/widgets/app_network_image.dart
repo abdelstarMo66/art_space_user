@@ -17,6 +17,7 @@ class AppNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: FadeInImage Or CacheNetworkImage
     return Image.network(
       image,
       width: width,

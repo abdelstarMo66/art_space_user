@@ -1,6 +1,7 @@
 import 'package:art_space_user/core/helpers/extensions.dart';
 import 'package:art_space_user/core/routing/routes.dart';
 import 'package:art_space_user/core/widgets/app_network_image.dart';
+import 'package:art_space_user/features/artworks/data/models/all_artwork_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/helpers/spacing.dart';
@@ -10,13 +11,22 @@ import '../../../../core/theming/text_style_manager.dart';
 class ArtworkItem extends StatelessWidget {
   final double? imageWidth;
   final double? imageHeight;
+  final AllArtworkModel? artworkModel;
 
-  const ArtworkItem({super.key, this.imageWidth, this.imageHeight});
+  const ArtworkItem({
+    super.key,
+    this.imageWidth,
+    this.imageHeight,
+    this.artworkModel,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.pushNamed(Routes.artworkDetails),
+      onTap: () => context.pushNamed(
+        Routes.artworkDetails,
+        arguments: artworkModel!.id,
+      ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12.0),
         child: Column(
@@ -26,14 +36,13 @@ class ArtworkItem extends StatelessWidget {
               alignment: AlignmentDirectional.bottomStart,
               children: [
                 AppNetworkImage(
-                  image:
-                      "https://www.artnet.com/WebServices/images/ll2584370llgbK522CfDrCWvaHBOAD/rafal-topolewski-sinking.jpg",
+                  image: artworkModel!.image,
                   width: imageWidth ?? double.maxFinite,
                   height: imageHeight,
                 ),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 10.0),
                   margin: const EdgeInsets.only(bottom: 16.0),
                   decoration: BoxDecoration(
                     color: ColorManager.lighterBlack.withOpacity(0.7),
@@ -43,7 +52,7 @@ class ArtworkItem extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    "\$250.00",
+                    "\$ ${artworkModel!.price}",
                     style: TextStyleManager.font14OriginalWhiteSemiBold,
                   ),
                 ),
@@ -51,21 +60,21 @@ class ArtworkItem extends StatelessWidget {
             ),
             verticalSpace(12.0),
             Text(
-              "Puffins",
+              artworkModel!.title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyleManager.font20LightBlackBold,
             ),
             verticalSpace(2.0),
             Text(
-              "Kovacs Anna Brigitta",
+              artworkModel!.ownerName,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyleManager.font14LighterBlackRegular,
             ),
             verticalSpace(2.0),
             Text(
-              "Watercolours",
+              artworkModel!.category,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyleManager.font14DarkPurpleSemiBold,

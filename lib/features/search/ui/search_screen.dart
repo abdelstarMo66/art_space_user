@@ -72,4 +72,11 @@ class _SearchScreenState extends State<SearchScreen>
       ),
     );
   }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _pageController.dispose();
+    super.dispose();
+  }
 }

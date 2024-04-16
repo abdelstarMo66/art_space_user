@@ -24,6 +24,16 @@ class ApiConstants {
 
   // Search
   static const String search = "search/user";
+
+  // Artwork
+  static const String getAllArtwork = "products";
+  static const String getArtwork = "products/{artworkId}";
+  static const String getCategory = "categories";
+  static const String getStyle = "styles";
+  static const String getSubject = "subjects";
+
+  // Artist
+  static const String getArtist = "artists/info/{artistId}";
 }
 
 class ApiErrors {

@@ -37,4 +37,7 @@ class Routes {
 
   // Artwork
   static const String artworkDetails = "artworkDetails";
+
+  // Artist
+  static const String artist = "artist";
 }

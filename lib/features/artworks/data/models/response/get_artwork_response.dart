@@ -1,80 +1,67 @@
-// import 'package:json_annotation/json_annotation.dart';
-//
-// part 'get_artwork_response.g.dart';
-//
-// @JsonSerializable()
-// class GetArtworksResponse {
-//   final String? status;
-//   final String? message;
-//   final int code;
-//   @JsonKey(name: 'data')
-//   Artwork? artworks;
-//
-//   GetArtworksResponse({
-//     required this.status,
-//     required this.code,
-//     required this.message,
-//     this.artworks,
-//   });
-//
-//   factory GetArtworksResponse.fromJson(Map<String, dynamic> json) =>
-//       _$GetArtworksResponseFromJson(json);
-// }
-//
-// @JsonSerializable()
-// class Artwork {
-//   final Pagination? pagination;
-//   @JsonKey(name: 'products')
-//   final List<ArtworkInfo>? artworksInfo;
-//
-//   Artwork({this.artworksInfo, this.pagination});
-//
-//   factory Artwork.fromJson(Map<String, dynamic> json) =>
-//       _$ArtworkFromJson(json);
-// }
-//
-// @JsonSerializable()
-// class Pagination {
-//   int? currentPage;
-//   int? limit;
-//   int? numbersOfPages;
-//   int? totalResults;
-//
-//   Pagination(
-//       {this.currentPage, this.limit, this.numbersOfPages, this.totalResults});
-//
-//   factory Pagination.fromJson(Map<String, dynamic> json) =>
-//       _$PaginationFromJson(json);
-// }
-//
-// @JsonSerializable()
-// class ArtworkInfo {
-//   String? id;
-//   String? title;
-//   String? description;
-//   num? price;
-//   String? isAvailable;
-//   CoverImage? coverImage;
-//
-//   ArtworkInfo(
-//       {this.id,
-//       this.title,
-//       this.description,
-//       this.price,
-//       this.coverImage,
-//       this.isAvailable});
-//
-//   factory ArtworkInfo.fromJson(Map<String, dynamic> json) =>
-//       _$ArtworkInfoFromJson(json);
-// }
-//
-// @JsonSerializable()
-// class CoverImage {
-//   String? imageId;
-//   String? profileImg;
-//
-//   CoverImage({this.imageId, this.profileImg});
-//
-//   factory CoverImage.fromJson(Map<String, dynamic> json) =>
-//       _$CoverImageFromJson(json);
-// }
+import 'package:json_annotation/json_annotation.dart';
+
+part 'get_artwork_response.g.dart';
+
+@JsonSerializable()
+class GetArtworkResponse {
+  final String status, message;
+  final int code;
+  final Data data;
+
+  GetArtworkResponse({
+    required this.status,
+    required this.code,
+    required this.message,
+    required this.data,
+  });
+
+  factory GetArtworkResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetArtworkResponseFromJson(json);
+}
+
+@JsonSerializable()
+class Data {
+  final String id, title, description, category, style, subject, size;
+  final String? material;
+  final num price;
+  final bool isAvailable;
+  final Owner owner;
+  final ArtworkImage coverImage;
+  final List<ArtworkImage> images;
+
+  const Data({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.category,
+    required this.style,
+    required this.subject,
+    required this.size,
+    required this.material,
+    required this.price,
+    required this.isAvailable,
+    required this.owner,
+    required this.coverImage,
+    required this.images,
+  });
+
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+}
+
+@JsonSerializable()
+class ArtworkImage {
+  final String profileImg;
+
+  const ArtworkImage({required this.profileImg});
+
+  factory ArtworkImage.fromJson(Map<String, dynamic> json) => _$ArtworkImageFromJson(json);
+}
+
+@JsonSerializable()
+class Owner {
+  final String id, name;
+
+  const Owner({required this.id, required this.name});
+
+  factory Owner.fromJson(Map<String, dynamic> json) => _$OwnerFromJson(json);
+}

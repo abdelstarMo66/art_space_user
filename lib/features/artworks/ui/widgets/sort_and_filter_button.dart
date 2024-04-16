@@ -1,3 +1,4 @@
+import 'package:art_space_user/features/artworks/logic/artwork_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -8,9 +9,11 @@ import '../../../../core/widgets/app_elevated_button.dart';
 import 'artwork_sort_dialog.dart';
 
 class SortAndFilterButton extends StatelessWidget {
+  final ArtworkCubit cubit;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  const SortAndFilterButton({super.key, required this.scaffoldKey});
+  const SortAndFilterButton(
+      {super.key, required this.scaffoldKey, required this.cubit});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ class SortAndFilterButton extends StatelessWidget {
               showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
-                builder: (context) => const ArtworkSortDialog(),
+                builder: (context) => ArtworkSortDialog(cubit: cubit),
               );
             },
           ),

@@ -1,5 +1,7 @@
 import 'package:art_space_user/core/helpers/extensions.dart';
+import 'package:art_space_user/features/artworks/logic/artwork_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,26 +20,24 @@ class CategoryModel {
 }
 
 class ArtworkFilterDialog extends StatefulWidget {
-  const ArtworkFilterDialog({super.key});
+  final ArtworkCubit cubit;
+
+  const ArtworkFilterDialog({super.key, required this.cubit});
 
   @override
   State<ArtworkFilterDialog> createState() => _ArtworkFilterDialogState();
 }
 
 class _ArtworkFilterDialogState extends State<ArtworkFilterDialog> {
-  double startValue = 1;
-  double endValue = 999;
+  late double startValue;
+  late double endValue;
 
-  static List<CategoryModel> categories = const [
-    CategoryModel(id: "1", title: "One"),
-    CategoryModel(id: "2", title: "Two"),
-    CategoryModel(id: "3", title: "Three"),
-    CategoryModel(id: "4", title: "Four"),
-    CategoryModel(id: "5", title: "Five"),
-    CategoryModel(id: "6", title: "Six"),
-    CategoryModel(id: "7", title: "Seven"),
-  ];
-
+  @override
+  void initState() {
+    startValue = widget.cubit.minPrice.toDouble();
+    endValue = widget.cubit.maxPrice.toDouble();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _ArtworkFilterDialogState extends State<ArtworkFilterDialog> {
         borderRadius: BorderRadius.circular(28.0),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
-      margin: const EdgeInsets.symmetric(horizontal:22.0),
+      margin: const EdgeInsets.symmetric(horizontal: 22.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +63,13 @@ class _ArtworkFilterDialogState extends State<ArtworkFilterDialog> {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  widget.cubit.categorySelected = [];
+                  widget.cubit.styleSelected = [];
+                  widget.cubit.subjectSelected = [];
+                  widget.cubit.emitGetAllArtworksState();
+                  context.pop();
+                },
                 child: Text(
                   "Reset",
                   style: TextStyleManager.font14DarkPurpleSemiBold,
@@ -86,20 +92,28 @@ class _ArtworkFilterDialogState extends State<ArtworkFilterDialog> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: MultiSelectContainer(
-                        prefix: MultiSelectPrefix(
-                          selectedPrefix: Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: SvgPicture.asset(
-                              AssetsManager.icCheck,
-                              height: 20.0,
-                            ),
+                      prefix: MultiSelectPrefix(
+                        selectedPrefix: Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: SvgPicture.asset(
+                            AssetsManager.icCheck,
+                            height: 20.0,
                           ),
                         ),
-                        items: categories
-                            .map((category) => MultiSelectCard(
-                                value: category.id, label: category.title))
-                            .toList(),
-                        onChange: (allSelectedItems, selectedItem) {}),
+                      ),
+                      items: context
+                          .read<ArtworkCubit>()
+                          .categories
+                          .map((category) => MultiSelectCard(
+                              value: category.id, label: category.title))
+                          .toList(),
+                      onChange: (allSelectedItems, selectedItem) {
+                        setState(() {
+                          context.read<ArtworkCubit>().categorySelected =
+                              allSelectedItems;
+                        });
+                      },
+                    ),
                   ),
                   verticalSpace(18.0),
                   Text(
@@ -110,20 +124,28 @@ class _ArtworkFilterDialogState extends State<ArtworkFilterDialog> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: MultiSelectContainer(
-                        prefix: MultiSelectPrefix(
-                          selectedPrefix: Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: SvgPicture.asset(
-                              AssetsManager.icCheck,
-                              height: 20.0,
-                            ),
+                      prefix: MultiSelectPrefix(
+                        selectedPrefix: Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: SvgPicture.asset(
+                            AssetsManager.icCheck,
+                            height: 20.0,
                           ),
                         ),
-                        items: categories
-                            .map((category) => MultiSelectCard(
-                                value: category.id, label: category.title))
-                            .toList(),
-                        onChange: (allSelectedItems, selectedItem) {}),
+                      ),
+                      items: context
+                          .read<ArtworkCubit>()
+                          .styles
+                          .map((category) => MultiSelectCard(
+                              value: category.id, label: category.title))
+                          .toList(),
+                      onChange: (allSelectedItems, selectedItem) {
+                        setState(() {
+                          context.read<ArtworkCubit>().styleSelected =
+                              allSelectedItems;
+                        });
+                      },
+                    ),
                   ),
                   verticalSpace(18.0),
                   Text(
@@ -134,20 +156,28 @@ class _ArtworkFilterDialogState extends State<ArtworkFilterDialog> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: MultiSelectContainer(
-                        prefix: MultiSelectPrefix(
-                          selectedPrefix: Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: SvgPicture.asset(
-                              AssetsManager.icCheck,
-                              height: 20.0,
-                            ),
+                      prefix: MultiSelectPrefix(
+                        selectedPrefix: Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: SvgPicture.asset(
+                            AssetsManager.icCheck,
+                            height: 20.0,
                           ),
                         ),
-                        items: categories
-                            .map((category) => MultiSelectCard(
-                                value: category.id, label: category.title))
-                            .toList(),
-                        onChange: (allSelectedItems, selectedItem) {}),
+                      ),
+                      items: context
+                          .read<ArtworkCubit>()
+                          .subjects
+                          .map((category) => MultiSelectCard(
+                              value: category.id, label: category.title))
+                          .toList(),
+                      onChange: (allSelectedItems, selectedItem) {
+                        setState(() {
+                          context.read<ArtworkCubit>().subjectSelected =
+                              allSelectedItems;
+                        });
+                      },
+                    ),
                   ),
                   verticalSpace(12.0),
                   Text(
@@ -155,12 +185,14 @@ class _ArtworkFilterDialogState extends State<ArtworkFilterDialog> {
                     style: TextStyleManager.font18LightBlackSemiBold,
                   ),
                   RangeSlider(
-                    min: 0,
-                    max: 999,
+                    min: widget.cubit.minPrice.toDouble(),
+                    max: widget.cubit.maxPrice.toDouble(),
                     labels: RangeLabels(
                       startValue.round().toString(),
                       endValue.round().toString(),
                     ),
+                    divisions: widget.cubit.maxPrice.round() -
+                        widget.cubit.minPrice.round(),
                     values: RangeValues(startValue, endValue),
                     onChanged: (values) {
                       setState(() {
@@ -192,7 +224,16 @@ class _ArtworkFilterDialogState extends State<ArtworkFilterDialog> {
                   child: AppTextButton(
                     buttonText: "Apply",
                     textStyle: TextStyleManager.font20OriginalWhiteSemiBold,
-                    onPressed: () {},
+                    onPressed: () {
+                      widget.cubit.emitGetAllArtworksState(
+                        category: widget.cubit.categorySelected,
+                        style: widget.cubit.styleSelected,
+                        subject: widget.cubit.subjectSelected,
+                        priceFrom: endValue.round(),
+                        priceTo: startValue.round(),
+                      );
+                      context.pop();
+                    },
                     borderRadius: 12.0,
                   ),
                 ),
@@ -202,5 +243,13 @@ class _ArtworkFilterDialogState extends State<ArtworkFilterDialog> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    widget.cubit.categorySelected = [];
+    widget.cubit.styleSelected = [];
+    widget.cubit.subjectSelected = [];
+    super.dispose();
   }
 }

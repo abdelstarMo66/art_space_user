@@ -1,12 +1,23 @@
+import 'package:art_space_user/features/artworks/data/models/response/get_artwork_response.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theming/color_manager.dart';
+import '../../../../core/theming/text_style_manager.dart';
 import '../../../../core/widgets/app_network_image.dart';
 
 class ArtworkDetailsImagesItem extends StatefulWidget {
-  const ArtworkDetailsImagesItem({super.key});
+  final String coverImage;
+  final String price;
+  final List<ArtworkImage> images;
+
+  const ArtworkDetailsImagesItem({
+    super.key,
+    required this.coverImage,
+    required this.images,
+    required this.price,
+  });
 
   @override
   State<ArtworkDetailsImagesItem> createState() =>
@@ -14,19 +25,16 @@ class ArtworkDetailsImagesItem extends StatefulWidget {
 }
 
 class _ArtworkDetailsImagesItemState extends State<ArtworkDetailsImagesItem> {
-  List<String> images = const [
-    "https://cdn.kreezalid.com/kreezalid/556408/catalog/8096/27/1000x1000_detail-3_dxf4y_1708897626.jpg",
-    "https://cdn.kreezalid.com/kreezalid/556408/catalog/8096/27/1000x1000_detail-4_hb1cb_1198421618.jpg",
-    "https://cdn.kreezalid.com/kreezalid/556408/catalog/8096/27/1000x1000_detail-5_2vons_1378185781.jpg",
-    "https://cdn.kreezalid.com/kreezalid/556408/catalog/8096/27/1000x1000_detail-7_46uuy_615146404.jpg",
-    "https://cdn.kreezalid.com/kreezalid/556408/catalog/8096/27/1000x1000_white-frame-tight-crop_ffgu5_1028893237.jpg",
-    "https://cdn.kreezalid.com/kreezalid/556408/catalog/8096/27/1000x1000_white-frame-tight-crop-ra-crop_2hcss_2109152326.jpg",
-  ];
+  final List<String> images = [];
   int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
+    images.add(widget.coverImage);
+    for (int i = 0; i < widget.images.length; i++) {
+      images.add(widget.images[i].profileImg);
+    }
   }
 
   @override
@@ -36,11 +44,12 @@ class _ArtworkDetailsImagesItemState extends State<ArtworkDetailsImagesItem> {
       children: [
         CarouselSlider.builder(
           itemCount: images.length,
-          itemBuilder: (BuildContext context, int index, int pageViewIndex) =>
-              ClipRRect(
+          itemBuilder:
+              (BuildContext context, int index, int pageViewIndex) =>
+                  ClipRRect(
             borderRadius: BorderRadius.circular(12.0),
-            child:
-                AppNetworkImage(image: images[index], width: double.maxFinite),
+            child: AppNetworkImage(
+                image: images[index], width: double.maxFinite),
           ),
           options: CarouselOptions(
             viewportFraction: 0.96,
@@ -92,7 +101,14 @@ class _ArtworkDetailsImagesItemState extends State<ArtworkDetailsImagesItem> {
 }
 
 class ArtworkDetailsImagesItem2 extends StatefulWidget {
-  const ArtworkDetailsImagesItem2({super.key});
+  final String coverImage;
+  final List<ArtworkImage> images;
+
+  const ArtworkDetailsImagesItem2({
+    super.key,
+    required this.coverImage,
+    required this.images,
+  });
 
   @override
   State<ArtworkDetailsImagesItem2> createState() =>
@@ -101,20 +117,17 @@ class ArtworkDetailsImagesItem2 extends StatefulWidget {
 
 class _ArtworkDetailsImagesItem2State extends State<ArtworkDetailsImagesItem2>
     with TickerProviderStateMixin {
-  List<String> images = const [
-    "https://cdn.kreezalid.com/kreezalid/556408/catalog/8096/27/1000x1000_detail-3_dxf4y_1708897626.jpg",
-    "https://cdn.kreezalid.com/kreezalid/556408/catalog/8096/27/1000x1000_detail-4_hb1cb_1198421618.jpg",
-    "https://cdn.kreezalid.com/kreezalid/556408/catalog/8096/27/1000x1000_detail-5_2vons_1378185781.jpg",
-    "https://cdn.kreezalid.com/kreezalid/556408/catalog/8096/27/1000x1000_detail-7_46uuy_615146404.jpg",
-    "https://cdn.kreezalid.com/kreezalid/556408/catalog/8096/27/1000x1000_white-frame-tight-crop_ffgu5_1028893237.jpg",
-    "https://cdn.kreezalid.com/kreezalid/556408/catalog/8096/27/1000x1000_white-frame-tight-crop-ra-crop_2hcss_2109152326.jpg",
-  ];
+  final List<String> images = [];
   int selectedImage = 0;
   late AnimationController fadeAnimation;
 
   @override
   void initState() {
     super.initState();
+    images.add(widget.coverImage);
+    for (int i = 0; i < widget.images.length; i++) {
+      images.add(widget.images[i].profileImg);
+    }
     fadeAnimation = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),

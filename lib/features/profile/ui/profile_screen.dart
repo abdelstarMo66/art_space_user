@@ -15,8 +15,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<ProfileCubit>(),
+    return BlocProvider.value(
+      value: getIt<ProfileCubit>(),
       child: RefreshIndicator(
         color: ColorManager.dartPurple,
         onRefresh: () {

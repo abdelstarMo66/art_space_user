@@ -1,8 +1,13 @@
 import 'package:art_space_user/core/app_cubit/app_cubit.dart';
 import 'package:art_space_user/core/networking/remote/dio_factory.dart';
+import 'package:art_space_user/core/networking/remote/services/artwork_api_service.dart';
 import 'package:art_space_user/core/networking/remote/services/auth_api_service.dart';
 import 'package:art_space_user/core/networking/remote/services/profile_api_service.dart';
-import 'package:art_space_user/core/networking/remote/services/search_api_service.dart';
+import 'package:art_space_user/core/networking/remote/services/shared_app_api_service.dart';
+import 'package:art_space_user/features/artist/data/repos/artist_repo.dart';
+import 'package:art_space_user/features/artist/logic/artist_cubit.dart';
+import 'package:art_space_user/features/artworks/data/repos/artwork_repo.dart';
+import 'package:art_space_user/features/artworks/logic/artwork_cubit.dart';
 import 'package:art_space_user/features/auth/data/repos/forget_password_repo.dart';
 import 'package:art_space_user/features/auth/data/repos/login_repo.dart';
 import 'package:art_space_user/features/auth/data/repos/register_repo.dart';
@@ -26,11 +31,17 @@ Future<void> setupGetIt() async {
   Dio dio = DioFactory.getDio();
   getIt.registerLazySingleton<AuthApiService>(() => AuthApiService(dio));
   getIt.registerLazySingleton<ProfileApiService>(() => ProfileApiService(dio));
-  getIt.registerLazySingleton<SearchApiService>(() => SearchApiService(dio));
+  getIt.registerLazySingleton<SharedAppApiService>(
+      () => SharedAppApiService(dio));
+  getIt.registerLazySingleton<ArtworkApiService>(() => ArtworkApiService(dio));
 
   // auth repo
   getIt.registerLazySingleton<LoginRepo>(
       () => LoginRepo(getIt<AuthApiService>()));
+  getIt.registerLazySingleton<ForgetPasswordRepo>(
+      () => ForgetPasswordRepo(getIt<AuthApiService>()));
+  getIt.registerLazySingleton<RegisterRepo>(
+      () => RegisterRepo(getIt<AuthApiService>()));
   // auth cubit
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt<LoginRepo>()));
   getIt.registerFactory<ForgetPasswordCubit>(
@@ -38,16 +49,24 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<RegisterCubit>(
       () => RegisterCubit(getIt<RegisterRepo>()));
 
-  // profile repo
+  // profile repo and cubit
   getIt.registerLazySingleton<ProfileRepo>(
       () => ProfileRepo(getIt<ProfileApiService>()));
-  // profile cubit
   getIt.registerLazySingleton<ProfileCubit>(
       () => ProfileCubit(getIt<ProfileRepo>()));
 
-  // search repo
+  // search repo and cubit
   getIt.registerLazySingleton<SearchRepo>(
-      () => SearchRepo(getIt<SearchApiService>()));
-  // search cubit
+      () => SearchRepo(getIt<SharedAppApiService>()));
   getIt.registerFactory<SearchCubit>(() => SearchCubit(getIt<SearchRepo>()));
+
+  // artwork repo and cubit
+  getIt.registerLazySingleton<ArtworkRepo>(
+      () => ArtworkRepo(getIt<ArtworkApiService>()));
+  getIt.registerFactory<ArtworkCubit>(() => ArtworkCubit(getIt<ArtworkRepo>()));
+
+  // artist repo and cubit
+  getIt.registerLazySingleton<ArtistRepo>(
+      () => ArtistRepo(getIt<SharedAppApiService>()));
+  getIt.registerFactory<ArtistCubit>(() => ArtistCubit(getIt<ArtistRepo>()));
 }

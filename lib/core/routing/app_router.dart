@@ -2,6 +2,9 @@ import 'package:art_space_user/core/app_cubit/app_cubit.dart';
 import 'package:art_space_user/core/di/dependency_injection.dart';
 import 'package:art_space_user/core/routing/animation_route.dart';
 import 'package:art_space_user/core/routing/routes.dart';
+import 'package:art_space_user/features/artist/logic/artist_cubit.dart';
+import 'package:art_space_user/features/artist/ui/artist_screen.dart';
+import 'package:art_space_user/features/artworks/logic/artwork_cubit.dart';
 import 'package:art_space_user/features/artworks/ui/artwork_details_screen.dart';
 import 'package:art_space_user/features/artworks/ui/artworks_screen.dart';
 import 'package:art_space_user/features/auth/logic/forget_password/forget_password_cubit.dart';
@@ -116,10 +119,6 @@ class AppRouter {
             child: const SearchScreen(),
           ),
         );
-      case Routes.exhibitions:
-        return AnimationRoute(page: const ExhibitionsScreen());
-      case Routes.artworks:
-        return AnimationRoute(page: const ArtworksScreen());
 
       // Profile
       case Routes.myProfile:
@@ -162,12 +161,42 @@ class AppRouter {
         );
 
       // Exhibition
+      case Routes.exhibitions:
+        return AnimationRoute(page: const ExhibitionsScreen());
       case Routes.exhibitionDetails:
         return AnimationRoute(page: const ExhibitionDetailsScreen());
 
       // Artwork
+      case Routes.artworks:
+        return AnimationRoute(
+          page: BlocProvider(
+            create: (context) => getIt<ArtworkCubit>()
+              ..emitGetAllArtworksState()
+              ..emitGetCategoryState()
+              ..emitGetStyleState()
+              ..emitGetSubjectState(),
+            child: const ArtworksScreen(),
+          ),
+        );
       case Routes.artworkDetails:
-        return AnimationRoute(page: const ArtworkDetailsScreen());
+        return AnimationRoute(
+          page: BlocProvider.value(
+            value: getIt<ArtworkCubit>()
+              ..emitGetArtworkState(artworkId: settings.arguments as String),
+            child: const ArtworkDetailsScreen(),
+          ),
+        );
+
+      // Artist
+      case Routes.artist:
+        return AnimationRoute(
+          page: BlocProvider(
+            create: (context) => getIt<ArtistCubit>()..emitArtistState(settings.arguments as String),
+            child: const ArtistScreen(),
+          ),
+        );
+
+      // undefined
       default:
         return unDefinitionRoute(settings);
     }

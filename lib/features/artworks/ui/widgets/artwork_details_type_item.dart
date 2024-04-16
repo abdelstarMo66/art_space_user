@@ -7,7 +7,15 @@ import '../../../../core/theming/text_style_manager.dart';
 import '../../../../core/utils/assets_manager.dart';
 
 class ArtworkDetailsTypeItem extends StatelessWidget {
-  const ArtworkDetailsTypeItem({super.key});
+  final String material, style, subject, size;
+
+  const ArtworkDetailsTypeItem({
+    super.key,
+    required this.material,
+    required this.style,
+    required this.subject,
+    required this.size,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +23,13 @@ class ArtworkDetailsTypeItem extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        const List<String> titles = ["Material", "Style", "Subject", "Dimensions"];
-        const List<String> values = ["Paper", "Classical and traditional", "Flowers and Plants", "40 x 40 x 2.0 cm"];
+        const List<String> titles = [
+          "Material",
+          "Style",
+          "Subject",
+          "Dimensions"
+        ];
+        List<String> values = [material, style, subject, "$size cm"];
         return Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
