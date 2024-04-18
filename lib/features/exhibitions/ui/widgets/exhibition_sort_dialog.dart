@@ -1,4 +1,5 @@
 import 'package:art_space_user/core/helpers/extensions.dart';
+import 'package:art_space_user/features/exhibitions/logic/exhibition_cubit.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/helpers/spacing.dart';
@@ -6,17 +7,19 @@ import '../../../../core/theming/color_manager.dart';
 import '../../../../core/theming/text_style_manager.dart';
 import '../../../../core/widgets/app_text_button.dart';
 
-enum ExhibitionSortEnum { highPrice, lowPrice, ascTitle, descTitle }
+enum ExhibitionSortEnum { highPrice, lowPrice }
 
 class ExhibitionSortDialog extends StatefulWidget {
-  const ExhibitionSortDialog({super.key});
+  final ExhibitionCubit cubit;
+
+  const ExhibitionSortDialog({super.key, required this.cubit});
 
   @override
   State<ExhibitionSortDialog> createState() => _ExhibitionSortDialogState();
 }
 
 class _ExhibitionSortDialogState extends State<ExhibitionSortDialog> {
-  ExhibitionSortEnum? exhibitionSortEnum;
+  static ExhibitionSortEnum? exhibitionSortEnum;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +47,7 @@ class _ExhibitionSortDialogState extends State<ExhibitionSortDialog> {
               TextButton(
                 onPressed: () {
                   exhibitionSortEnum = null;
+                  widget.cubit.emitGetAllExhibitions();
                   context.pop();
                 },
                 child: Text(
@@ -54,16 +58,6 @@ class _ExhibitionSortDialogState extends State<ExhibitionSortDialog> {
             ],
           ),
           const Divider(height: 20.0, thickness: 0.8),
-          sortItem(
-            title: "Name",
-            subTitle: "A - Z",
-            value: ExhibitionSortEnum.ascTitle,
-          ),
-          sortItem(
-            title: "Name",
-            subTitle: "Z - A",
-            value: ExhibitionSortEnum.descTitle,
-          ),
           sortItem(
             title: "Price",
             subTitle: "Low to High",
@@ -93,7 +87,17 @@ class _ExhibitionSortDialogState extends State<ExhibitionSortDialog> {
                   child: AppTextButton(
                     buttonText: "Apply",
                     textStyle: TextStyleManager.font20OriginalWhiteSemiBold,
-                    onPressed: () {},
+                    onPressed: () {
+                      widget.cubit.emitGetAllExhibitions(
+                          sort:
+                              exhibitionSortEnum == ExhibitionSortEnum.highPrice
+                                  ? "-price"
+                                  : exhibitionSortEnum ==
+                                          ExhibitionSortEnum.lowPrice
+                                      ? "price"
+                                      : "");
+                      context.pop();
+                    },
                     borderRadius: 12.0,
                   ),
                 ),

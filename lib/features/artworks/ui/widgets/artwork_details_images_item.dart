@@ -33,7 +33,7 @@ class _ArtworkDetailsImagesItemState extends State<ArtworkDetailsImagesItem> {
     super.initState();
     images.add(widget.coverImage);
     for (int i = 0; i < widget.images.length; i++) {
-      images.add(widget.images[i].profileImg);
+      images.add(widget.images[i].image);
     }
   }
 
@@ -126,7 +126,7 @@ class _ArtworkDetailsImagesItem2State extends State<ArtworkDetailsImagesItem2>
     super.initState();
     images.add(widget.coverImage);
     for (int i = 0; i < widget.images.length; i++) {
-      images.add(widget.images[i].profileImg);
+      images.add(widget.images[i].image);
     }
     fadeAnimation = AnimationController(
       vsync: this,

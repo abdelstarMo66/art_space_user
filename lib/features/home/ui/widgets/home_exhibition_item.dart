@@ -2,7 +2,8 @@ import 'package:art_space_user/core/helpers/extensions.dart';
 import 'package:art_space_user/core/routing/routes.dart';
 import 'package:art_space_user/core/theming/text_style_manager.dart';
 import 'package:art_space_user/core/utils/assets_manager.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:art_space_user/core/widgets/app_network_image.dart';
+import 'package:art_space_user/features/home/data/models/response/explore_exhibitions_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -10,12 +11,17 @@ import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theming/color_manager.dart';
 
 class HomeExhibitionItem extends StatelessWidget {
-  const HomeExhibitionItem({super.key});
+  final Exhibition? exhibition;
+
+  const HomeExhibitionItem({super.key, this.exhibition});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.pushNamed(Routes.exhibitionDetails),
+      onTap: () => context.pushNamed(
+        Routes.exhibitionDetails,
+        arguments: exhibition!.id,
+      ),
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 4.0),
         color: ColorManager.moreLightGray,
@@ -30,12 +36,9 @@ class HomeExhibitionItem extends StatelessWidget {
                   topStart: Radius.circular(8.0),
                   topEnd: Radius.circular(8.0),
                 ),
-                child: CachedNetworkImage(
-                  imageUrl:
-                      "https://blog.artweb.com/wp-content/uploads/2020/11/Royal-Academy-Summer-64-David-Parry-provided-by-organizers-600x400.jpg",
+                child: AppNetworkImage(
+                  image: exhibition!.coverImage,
                   width: double.maxFinite,
-                  height: 160.0,
-                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -53,7 +56,7 @@ class HomeExhibitionItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Augmented Empathy",
+                            exhibition!.title,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyleManager.font20LightBlackBold,
@@ -70,7 +73,7 @@ class HomeExhibitionItem extends StatelessWidget {
                               ),
                               horizontalSpace(2.0),
                               Text(
-                                "12 days",
+                                "${exhibition!.duration} days",
                                 style:
                                     TextStyleManager.font16DarkPurpleSemiBold,
                               ),
@@ -78,10 +81,6 @@ class HomeExhibitionItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // IconButton(
-                      //   onPressed: () {},
-                      //   icon: SvgPicture.asset(AssetsManager.icAdd),
-                      // ),
                     ],
                   ),
                   verticalSpace(4.0),
@@ -96,12 +95,12 @@ class HomeExhibitionItem extends StatelessWidget {
                       ),
                       horizontalSpace(2.0),
                       Text(
-                        "12/05/2024",
+                        exhibition!.began.split("T")[0],
                         style: TextStyleManager.font16DarkPurpleSemiBold,
                       ),
                       const Spacer(),
                       Text(
-                        "Elizabete Caires",
+                        exhibition!.owner.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyleManager.font16DarkPurpleSemiBold,

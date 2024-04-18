@@ -1,5 +1,6 @@
 import 'package:art_space_user/core/theming/color_manager.dart';
 import 'package:art_space_user/core/widgets/app_custom_shimmer.dart';
+import 'package:art_space_user/core/widgets/no_thing.dart';
 import 'package:art_space_user/features/artworks/data/models/all_artwork_model.dart';
 import 'package:art_space_user/features/artworks/logic/artwork_cubit.dart';
 import 'package:art_space_user/features/artworks/logic/artwork_state.dart';
@@ -113,7 +114,7 @@ class ArtworksScreen extends StatelessWidget {
                                                 .allArtworks[index - 1].price
                                                 .toString(),
                                             image: cubit.allArtworks[index - 1]
-                                                .coverImage.profileImg,
+                                                .coverImage.image,
                                             ownerName: cubit
                                                 .allArtworks[index - 1]
                                                 .owner
@@ -128,6 +129,21 @@ class ArtworksScreen extends StatelessWidget {
                             ),
                     ),
                   ),
+                ),
+                SliverFillRemaining(
+                  child: state is GetAllArtworksSuccess &&
+                          state.getAllArtworksResponse.data.products.isEmpty
+                      ? Container(
+                          color: Colors.white,
+                          child: const Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              NoThingWidget(),
+                            ],
+                          ),
+                        )
+                      : const SizedBox.shrink(),
                 ),
               ],
             ),

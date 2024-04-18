@@ -54,9 +54,9 @@ class ArtworkInfo {
 
 @JsonSerializable()
 class CoverImage {
-  final String profileImg;
+  final String image;
 
-  const CoverImage({required this.profileImg});
+  const CoverImage({required this.image});
 
   factory CoverImage.fromJson(Map<String, dynamic> json) =>
       _$CoverImageFromJson(json);

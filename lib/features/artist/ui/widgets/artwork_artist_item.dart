@@ -33,7 +33,7 @@ class ArtworkArtistItem extends StatelessWidget {
               alignment: AlignmentDirectional.bottomStart,
               children: [
                 AppNetworkImage(
-                  image: artworkInfo.coverImage.profileImg,
+                  image: artworkInfo.coverImage.image,
                   width: double.maxFinite,
                 ),
                 Container(

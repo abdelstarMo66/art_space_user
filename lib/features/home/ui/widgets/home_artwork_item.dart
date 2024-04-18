@@ -1,21 +1,25 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:art_space_user/core/helpers/extensions.dart';
+import 'package:art_space_user/core/routing/routes.dart';
+import 'package:art_space_user/core/widgets/app_network_image.dart';
+import 'package:art_space_user/features/home/data/models/response/recently_artwork_response.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theming/color_manager.dart';
 import '../../../../core/theming/text_style_manager.dart';
-import '../../../../core/utils/assets_manager.dart';
 
 class HomeArtworkItem extends StatelessWidget {
-  const HomeArtworkItem({super.key});
+  final ArtworkInfo artwork;
+
+  const HomeArtworkItem({super.key, required this.artwork});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // TODO: Navigate To Details Screen
-      },
+      onTap: () => context.pushNamed(
+        Routes.artworkDetails,
+        arguments: artwork.id,
+      ),
       onLongPress: () {
         // TODO: Add To Favourites List And Show Cool Animation
       },
@@ -35,13 +39,12 @@ class HomeArtworkItem extends StatelessWidget {
                 ClipRRect(
                   borderRadius: const BorderRadiusDirectional.only(
                     topStart: Radius.circular(12.0),
+                    bottomStart: Radius.circular(12.0),
                   ),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        "https://cdn.kreezalid.com/kreezalid/556408/catalog/8096/27/ds0475-f2_qdcxx_99879490.jpg",
+                  child: AppNetworkImage(
+                    image: artwork.coverImage.image,
                     width: 120.0,
                     height: 180.0,
-                    fit: BoxFit.cover,
                   ),
                 ),
                 Expanded(
@@ -56,25 +59,27 @@ class HomeArtworkItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "Freya Freya Freya Freya ",
+                          artwork.title,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyleManager.font24OLightBlackSemiBold,
                         ),
                         verticalSpace(4.0),
                         Text(
-                          "A beautiful acrylic painting on canvas of a Nordic warrior woman. One of a kind. Ready to hang.",
-                          // "A beautiful acrylic painting ",
+                          artwork.description,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyleManager.font14LightBlackMedium,
                         ),
                         verticalSpace(4.0),
-                        Text(
-                          "Elizabete Caires",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyleManager.font16DarkPurpleSemiBold,
+                        Align(
+                          alignment: AlignmentDirectional.bottomEnd,
+                          child: Text(
+                            artwork.owner.name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyleManager.font16DarkPurpleSemiBold,
+                          ),
                         )
                       ],
                     ),
@@ -90,10 +95,11 @@ class HomeArtworkItem extends StatelessWidget {
             decoration: const BoxDecoration(
               color: ColorManager.dartPurple,
               borderRadius: BorderRadiusDirectional.only(
-                  bottomStart: Radius.circular(12.0)),
+                bottomStart: Radius.circular(12.0),
+              ),
             ),
             child: Text(
-              "£400.00",
+              "💰${artwork.price.toDouble()}",
               textAlign: TextAlign.center,
               style: TextStyleManager.font22LighterGraySemiBold,
             ),

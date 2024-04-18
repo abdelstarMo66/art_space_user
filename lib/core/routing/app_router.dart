@@ -16,6 +16,7 @@ import 'package:art_space_user/features/auth/ui/otp_reset_password_screen.dart';
 import 'package:art_space_user/features/auth/ui/register_screen.dart';
 import 'package:art_space_user/features/auth/ui/reset_password_screen.dart';
 import 'package:art_space_user/features/bottom_navigation_bar/bottom_navigation_bar_screen.dart';
+import 'package:art_space_user/features/exhibitions/logic/exhibition_cubit.dart';
 import 'package:art_space_user/features/exhibitions/ui/exhibition_details_screen.dart';
 import 'package:art_space_user/features/exhibitions/ui/exhibitions_screen.dart';
 import 'package:art_space_user/features/notification/ui/notification_screen.dart';
@@ -162,9 +163,21 @@ class AppRouter {
 
       // Exhibition
       case Routes.exhibitions:
-        return AnimationRoute(page: const ExhibitionsScreen());
+        return AnimationRoute(
+          page: BlocProvider(
+            create: (context) =>
+                getIt<ExhibitionCubit>()..emitGetAllExhibitions(),
+            child: const ExhibitionsScreen(),
+          ),
+        );
       case Routes.exhibitionDetails:
-        return AnimationRoute(page: const ExhibitionDetailsScreen());
+        return AnimationRoute(
+          page: BlocProvider(
+            create: (context) => getIt<ExhibitionCubit>()
+              ..emitGetExhibition(exhibitionId: settings.arguments as String),
+            child: const ExhibitionDetailsScreen(),
+          ),
+        );
 
       // Artwork
       case Routes.artworks:
@@ -180,8 +193,8 @@ class AppRouter {
         );
       case Routes.artworkDetails:
         return AnimationRoute(
-          page: BlocProvider.value(
-            value: getIt<ArtworkCubit>()
+          page: BlocProvider(
+            create: (context) => getIt<ArtworkCubit>()
               ..emitGetArtworkState(artworkId: settings.arguments as String),
             child: const ArtworkDetailsScreen(),
           ),
@@ -191,7 +204,8 @@ class AppRouter {
       case Routes.artist:
         return AnimationRoute(
           page: BlocProvider(
-            create: (context) => getIt<ArtistCubit>()..emitArtistState(settings.arguments as String),
+            create: (context) => getIt<ArtistCubit>()
+              ..emitArtistState(settings.arguments as String),
             child: const ArtistScreen(),
           ),
         );

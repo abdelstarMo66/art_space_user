@@ -2,8 +2,8 @@ import 'package:art_space_user/core/helpers/spacing.dart';
 import 'package:art_space_user/core/theming/color_manager.dart';
 import 'package:art_space_user/core/theming/text_style_manager.dart';
 import 'package:art_space_user/core/utils/assets_manager.dart';
+import 'package:art_space_user/core/widgets/app_network_image.dart';
 import 'package:art_space_user/features/artist/data/models/response/artist_response.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -33,12 +33,10 @@ class ExhibitionArtistItem extends StatelessWidget {
                     topStart: Radius.circular(8.0),
                     topEnd: Radius.circular(8.0),
                   ),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        "https://blog.artweb.com/wp-content/uploads/2020/11/Royal-Academy-Summer-64-David-Parry-provided-by-organizers-600x400.jpg",
-                    width: double.maxFinite,
+                  child: AppNetworkImage(
+                    image: exhibitionInfo.coverImage,
                     height: 160.0,
-                    fit: BoxFit.cover,
+                    width: double.infinity,
                   ),
                 ),
               ),

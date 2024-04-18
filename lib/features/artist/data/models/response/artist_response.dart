@@ -79,6 +79,7 @@ class Artwork {
 class Exhibition {
   final String id, title, began, end;
   final int duration;
+  final String coverImage;
 
   const Exhibition({
     required this.id,
@@ -86,6 +87,7 @@ class Exhibition {
     required this.began,
     required this.end,
     required this.duration,
+    required this.coverImage,
   });
 
   factory Exhibition.fromJson(Map<String, dynamic> json) =>
@@ -114,9 +116,9 @@ class Auction {
 
 @JsonSerializable()
 class CoverImage {
-  final String profileImg;
+  final String image;
 
-  const CoverImage({required this.profileImg});
+  const CoverImage({required this.image});
 
   factory CoverImage.fromJson(Map<String, dynamic> json) =>
       _$CoverImageFromJson(json);

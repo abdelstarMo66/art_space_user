@@ -15,7 +15,7 @@ class AuctionArtistItem extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12.0),
         child: AppNetworkImage(
-          image: auctionInfo.coverImage.profileImg,
+          image: auctionInfo.coverImage.image,
           width: double.maxFinite,
         ),
       ),

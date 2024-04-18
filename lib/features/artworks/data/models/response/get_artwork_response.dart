@@ -50,9 +50,9 @@ class Data {
 
 @JsonSerializable()
 class ArtworkImage {
-  final String profileImg;
+  final String image;
 
-  const ArtworkImage({required this.profileImg});
+  const ArtworkImage({required this.image});
 
   factory ArtworkImage.fromJson(Map<String, dynamic> json) => _$ArtworkImageFromJson(json);
 }

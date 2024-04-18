@@ -1,22 +1,31 @@
 import 'package:art_space_user/core/helpers/extensions.dart';
 import 'package:art_space_user/core/theming/text_style_manager.dart';
 import 'package:art_space_user/core/widgets/app_text_button.dart';
+import 'package:art_space_user/features/exhibitions/logic/exhibition_cubit.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theming/color_manager.dart';
 
 class ExhibitionFilterDialog extends StatefulWidget {
-  const ExhibitionFilterDialog({super.key});
+  final ExhibitionCubit cubit;
+
+  const ExhibitionFilterDialog({super.key, required this.cubit});
 
   @override
   State<ExhibitionFilterDialog> createState() => _ExhibitionFilterDialogState();
 }
 
 class _ExhibitionFilterDialogState extends State<ExhibitionFilterDialog> {
-  double _value = 1;
-  double _startValue = 1;
-  double _endValue = 999;
+  late double _startDurationValue;
+  late double _endDurationValue;
+
+  @override
+  void initState() {
+    _startDurationValue = widget.cubit.minDuration.toDouble();
+    _endDurationValue = widget.cubit.maxDuration.toDouble();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +52,10 @@ class _ExhibitionFilterDialogState extends State<ExhibitionFilterDialog> {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  widget.cubit.emitGetAllExhibitions();
+                  context.pop();
+                },
                 child: Text(
                   "Reset",
                   style: TextStyleManager.font14DarkPurpleSemiBold,
@@ -57,35 +69,19 @@ class _ExhibitionFilterDialogState extends State<ExhibitionFilterDialog> {
             "Duration",
             style: TextStyleManager.font18LightBlackSemiBold,
           ),
-          Slider(
-            min: 1,
-            max: 14,
-            value: _value,
-            divisions: 14,
-            label: '${_value.round()}',
-            onChanged: (value) {
-              setState(() {
-                _value = value;
-              });
-            },
-          ),
-          verticalSpace(12.0),
-          Text(
-            "Price",
-            style: TextStyleManager.font18LightBlackSemiBold,
-          ),
           RangeSlider(
-            min: 0,
-            max: 999,
+            min: widget.cubit.minDuration.toDouble(),
+            max: widget.cubit.maxDuration.toDouble(),
             labels: RangeLabels(
-              _startValue.round().toString(),
-              _endValue.round().toString(),
+              _startDurationValue.round().toString(),
+              _endDurationValue.round().toString(),
             ),
-            values: RangeValues(_startValue, _endValue),
+            divisions: 14,
+            values: RangeValues(_startDurationValue, _endDurationValue),
             onChanged: (values) {
               setState(() {
-                _startValue = values.start;
-                _endValue = values.end;
+                _startDurationValue = values.start;
+                _endDurationValue = values.end;
               });
             },
           ),
@@ -108,7 +104,13 @@ class _ExhibitionFilterDialogState extends State<ExhibitionFilterDialog> {
                   child: AppTextButton(
                     buttonText: "Apply",
                     textStyle: TextStyleManager.font20OriginalWhiteSemiBold,
-                    onPressed: () {},
+                    onPressed: () {
+                      widget.cubit.emitGetAllExhibitions(
+                        durationFrom: _endDurationValue.round(),
+                        durationTo: _startDurationValue.round(),
+                      );
+                      context.pop();
+                    },
                     borderRadius: 12.0,
                   ),
                 ),

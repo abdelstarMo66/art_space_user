@@ -12,13 +12,6 @@ import '../../../../core/theming/text_style_manager.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/widgets/app_text_button.dart';
 
-class CategoryModel {
-  final String id;
-  final String title;
-
-  const CategoryModel({required this.id, required this.title});
-}
-
 class ArtworkFilterDialog extends StatefulWidget {
   final ArtworkCubit cubit;
 

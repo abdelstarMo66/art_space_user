@@ -9,7 +9,6 @@ import 'package:art_space_user/features/artworks/data/models/response/get_subjec
 import 'package:art_space_user/features/artworks/data/repos/artwork_repo.dart';
 import 'package:art_space_user/features/artworks/logic/artwork_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:hive/hive.dart';
 
 class ArtworkCubit extends Cubit<ArtworkStates> {
@@ -130,7 +129,6 @@ class ArtworkCubit extends Cubit<ArtworkStates> {
     styles = box.values.toList();
 
     if (styles.isEmpty) {
-      print("noStyle");
       final style = await _artworkRepo.getStyles(
         token: SharedPreferencesManager.getData(
           key: PrefsManager.token,

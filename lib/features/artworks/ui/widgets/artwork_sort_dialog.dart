@@ -19,7 +19,7 @@ class ArtworkSortDialog extends StatefulWidget {
 }
 
 class _ArtworkSortDialogState extends State<ArtworkSortDialog> {
-  static ArtworkSortEnum? exhibitionSortEnum;
+  static ArtworkSortEnum? artworkSortEnum;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class _ArtworkSortDialogState extends State<ArtworkSortDialog> {
               ),
               TextButton(
                 onPressed: () {
-                  exhibitionSortEnum = null;
+                  artworkSortEnum = null;
                   widget.cubit.emitGetAllArtworksState();
                   context.pop();
                 },
@@ -89,9 +89,9 @@ class _ArtworkSortDialogState extends State<ArtworkSortDialog> {
                     textStyle: TextStyleManager.font20OriginalWhiteSemiBold,
                     onPressed: () {
                       widget.cubit.emitGetAllArtworksState(
-                          sort: exhibitionSortEnum == ArtworkSortEnum.highPrice
+                          sort: artworkSortEnum == ArtworkSortEnum.highPrice
                               ? "-price"
-                              : exhibitionSortEnum == ArtworkSortEnum.lowPrice
+                              : artworkSortEnum == ArtworkSortEnum.lowPrice
                                   ? "price"
                                   : "");
                       context.pop();
@@ -130,10 +130,10 @@ class _ArtworkSortDialogState extends State<ArtworkSortDialog> {
         dense: true,
         leading: Radio<ArtworkSortEnum>(
           value: value,
-          groupValue: exhibitionSortEnum,
+          groupValue: artworkSortEnum,
           onChanged: (ArtworkSortEnum? value) {
             setState(() {
-              exhibitionSortEnum = value;
+              artworkSortEnum = value;
             });
           },
         ),

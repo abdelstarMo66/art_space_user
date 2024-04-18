@@ -34,6 +34,18 @@ class ApiConstants {
 
   // Artist
   static const String getArtist = "artists/info/{artistId}";
+
+  // Exhibition
+  static const String getAllExhibition = "events";
+  static const String getExhibition = "events/{exhibitionId}";
+
+  // Home
+  static const String exploreExhibition = "events";
+  static const String recentlyArtwork = "products";
+
+  // Cart
+  static const String cart = "cart";
+  static const String deleteCart = "cart/{productId}";
 }
 
 class ApiErrors {

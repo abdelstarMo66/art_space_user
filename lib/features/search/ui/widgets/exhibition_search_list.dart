@@ -1,5 +1,6 @@
 import 'package:art_space_user/core/theming/color_manager.dart';
 import 'package:art_space_user/core/widgets/no_thing.dart';
+import 'package:art_space_user/features/home/data/models/response/explore_exhibitions_response.dart';
 import 'package:art_space_user/features/home/ui/widgets/home_exhibition_item.dart';
 import 'package:art_space_user/features/search/logic/search_cubit.dart';
 import 'package:art_space_user/features/search/logic/search_state.dart';
