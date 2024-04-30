@@ -7,7 +7,7 @@ part 'get_category_response.g.dart';
 class GetCategoryResponse {
   final String message, status;
   final int code;
-  final Data data;
+  final List<Category> data;
 
   const GetCategoryResponse({
     required this.message,
@@ -18,17 +18,6 @@ class GetCategoryResponse {
 
   factory GetCategoryResponse.fromJson(Map<String, dynamic> json) =>
       _$GetCategoryResponseFromJson(json);
-}
-
-@JsonSerializable()
-class Data {
-  final List<Category> categories;
-
-  const Data({
-    required this.categories,
-  });
-
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 }
 
 @HiveType(typeId: 0)

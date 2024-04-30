@@ -17,6 +17,7 @@ class ArtworkCubit extends Cubit<ArtworkStates> {
   ArtworkCubit(this._artworkRepo) : super(ArtworkInitial());
 
   List<ArtworkInfo> allArtworks = [];
+  bool loadAllArtwork = true;
   List<Category> categories = [];
   List<Style> styles = [];
   List<Subject> subjects = [];
@@ -38,7 +39,7 @@ class ArtworkCubit extends Cubit<ArtworkStates> {
   }) async {
     emit(GetAllArtworksLoading());
     allArtworks = [];
-
+    loadAllArtwork = true;
     final artworks = await _artworkRepo.getAllArtworks(
       token: SharedPreferencesManager.getData(
         key: PrefsManager.token,
@@ -62,9 +63,11 @@ class ArtworkCubit extends Cubit<ArtworkStates> {
             minPrice = artwork.price;
           }
         }
+        loadAllArtwork = false;
         emit(GetAllArtworksSuccess(response));
       },
       failure: (ErrorHandler error) {
+        loadAllArtwork = false;
         emit(GetAllArtworksFailure(error.apiErrorModel.message));
       },
     );
@@ -106,11 +109,11 @@ class ArtworkCubit extends Cubit<ArtworkStates> {
       category.when(
         success: (GetCategoryResponse response) async {
           await box.clear();
-          await box.addAll(response.data.categories);
+          await box.addAll(response.data);
           categories = box.values.toList();
           await box.close();
 
-          emit(GetCategorySuccess(response.data.categories));
+          emit(GetCategorySuccess(response.data));
         },
         failure: (ErrorHandler error) {
           emit(GetCategoryFailure(error.apiErrorModel.message));
@@ -138,11 +141,11 @@ class ArtworkCubit extends Cubit<ArtworkStates> {
       style.when(
         success: (GetStyleResponse response) async {
           await box.clear();
-          await box.addAll(response.data.styles);
+          await box.addAll(response.data);
           styles = box.values.toList();
           await box.close();
 
-          emit(GetStyleSuccess(response.data.styles));
+          emit(GetStyleSuccess(response.data));
         },
         failure: (ErrorHandler error) {
           emit(GetStyleFailure(error.apiErrorModel.message));
@@ -170,11 +173,11 @@ class ArtworkCubit extends Cubit<ArtworkStates> {
       subject.when(
         success: (GetSubjectResponse response) async {
           await box.clear();
-          await box.addAll(response.data.subjects);
+          await box.addAll(response.data);
           subjects = box.values.toList();
           await box.close();
 
-          emit(GetSubjectSuccess(response.data.subjects));
+          emit(GetSubjectSuccess(response.data));
         },
         failure: (ErrorHandler error) {
           emit(GetSubjectFailure(error.apiErrorModel.message));

@@ -40,7 +40,8 @@ class Data {
 
 @JsonSerializable()
 class Artist {
-  final String id, name, email, bio, profileImg, phone;
+  final String id, name, email, profileImg, phone;
+  final String? bio;
 
   const Artist({
     required this.id,

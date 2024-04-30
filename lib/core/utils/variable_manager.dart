@@ -4,6 +4,7 @@ class VariableManager {
 
 class ApiConstants {
   static const String apiBaseUrl = "https://art-space-v9.onrender.com/api/v1/";
+  static const String socketServerURL = "https://art-space-v9.onrender.com";
 
   // Auth
   static const String login = "userAuth/login";
@@ -46,6 +47,11 @@ class ApiConstants {
   // Cart
   static const String cart = "cart";
   static const String deleteCart = "cart/{productId}";
+
+  // Gallery
+  static const String getAllAuctions = "auction";
+  static const String getAuction = "auction/product/{auctionId}";
+  static const String bid = "auction/{auctionId}/updatePrice";
 }
 
 class ApiErrors {

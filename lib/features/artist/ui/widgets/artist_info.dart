@@ -93,7 +93,7 @@ class ArtistInfo extends StatelessWidget {
             ),
           ),
           Text(
-            artistInfo.artist.bio,
+            artistInfo.artist.bio ?? "",
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyleManager.font16GrayRegular,

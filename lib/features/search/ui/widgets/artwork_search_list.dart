@@ -1,4 +1,5 @@
 import 'package:art_space_user/core/widgets/no_thing.dart';
+import 'package:art_space_user/features/artworks/data/models/all_artwork_model.dart';
 import 'package:art_space_user/features/search/logic/search_cubit.dart';
 import 'package:art_space_user/features/search/logic/search_state.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,14 @@ class ArtworkSearchList extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) => const ArtworkItem(
                     imageHeight: 180.0,
+                    artworkModel: AllArtworkModel(
+                      id: "id",
+                      title: "title",
+                      price: "price",
+                      image: "image",
+                      ownerName: "ownerName",
+                      category: "category",
+                    ),
                   ),
                   separatorBuilder: (context, index) => verticalSpace(20.0),
                   itemCount: state.searchResponse.data.products.length,

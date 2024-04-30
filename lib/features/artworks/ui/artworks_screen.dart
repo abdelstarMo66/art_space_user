@@ -64,92 +64,115 @@ class ArtworksScreen extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               slivers: [
                 SliverFillRemaining(
-                  child: AnimationLimiter(
-                    child: MasonryGridView.count(
-                      controller: scrollController,
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 22.0,
-                      crossAxisSpacing: 12.0,
-                      itemCount: state is! GetAllArtworksSuccess
-                          ? 7
-                          : cubit.allArtworks.length + 1,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) => index == 0
-                          ? state is GetAllArtworksSuccess
-                              ? SortAndFilterButton(
-                                  scaffoldKey: scaffoldKey,
-                                  cubit: cubit,
-                                )
-                              : const SizedBox()
-                          : AnimationConfiguration.staggeredGrid(
-                              position: index,
-                              duration: const Duration(milliseconds: 500),
-                              columnCount: 2,
-                              child: ScaleAnimation(
-                                duration: const Duration(
-                                  milliseconds: 900,
-                                ),
-                                curve: Curves.fastLinearToSlowEaseIn,
-                                child: FadeInAnimation(
-                                  child: state is! GetAllArtworksSuccess
-                                      ? AppCustomShimmer(
-                                          child: Container(
-                                            height: 200.0,
-                                            margin: const EdgeInsets.symmetric(
-                                              vertical: 8.0,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                            ),
-                                          ),
+                    child: AnimatedCrossFade(
+                        firstChild: cubit.allArtworks.isNotEmpty
+                            ? AnimationLimiter(
+                                child: MasonryGridView.count(
+                                  controller: scrollController,
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 22.0,
+                                  crossAxisSpacing: 12.0,
+                                  itemCount: cubit.allArtworks.length + 1,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemBuilder: (context, index) => index == 0
+                                      ? SortAndFilterButton(
+                                          scaffoldKey: scaffoldKey,
+                                          cubit: cubit,
                                         )
-                                      : ArtworkItem(
-                                          artworkModel: AllArtworkModel(
-                                            id: cubit.allArtworks[index - 1].id,
-                                            title: cubit
-                                                .allArtworks[index - 1].title,
-                                            price: cubit
-                                                .allArtworks[index - 1].price
-                                                .toString(),
-                                            image: cubit.allArtworks[index - 1]
-                                                .coverImage.image,
-                                            ownerName: cubit
-                                                .allArtworks[index - 1]
-                                                .owner
-                                                .name,
-                                            category: cubit
-                                                .allArtworks[index - 1]
-                                                .category,
+                                      : AnimationConfiguration.staggeredGrid(
+                                          position: index,
+                                          duration:
+                                              const Duration(milliseconds: 500),
+                                          columnCount: 2,
+                                          child: ScaleAnimation(
+                                            duration: const Duration(
+                                                milliseconds: 900),
+                                            curve:
+                                                Curves.fastLinearToSlowEaseIn,
+                                            child: FadeInAnimation(
+                                              child: ArtworkItem(
+                                                artworkModel: AllArtworkModel(
+                                                  id: cubit
+                                                      .allArtworks[index - 1]
+                                                      .id,
+                                                  title: cubit
+                                                      .allArtworks[index - 1]
+                                                      .title,
+                                                  price: cubit
+                                                      .allArtworks[index - 1]
+                                                      .price
+                                                      .toString(),
+                                                  image: cubit
+                                                      .allArtworks[index - 1]
+                                                      .coverImage
+                                                      .image,
+                                                  ownerName: cubit
+                                                      .allArtworks[index - 1]
+                                                      .owner
+                                                      .name,
+                                                  category: cubit
+                                                      .allArtworks[index - 1]
+                                                      .category,
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                 ),
+                              )
+                            : Container(
+                                color: Colors.white,
+                                child: const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    NoThingWidget(),
+                                  ],
+                                ),
                               ),
-                            ),
-                    ),
-                  ),
-                ),
-                SliverFillRemaining(
-                  child: state is GetAllArtworksSuccess &&
-                          state.getAllArtworksResponse.data.products.isEmpty
-                      ? Container(
-                          color: Colors.white,
-                          child: const Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              NoThingWidget(),
-                            ],
-                          ),
-                        )
-                      : const SizedBox.shrink(),
-                ),
+                        secondChild: const LoadingAllArtworkGridView(),
+                        duration: const Duration(seconds: 1),
+                        crossFadeState: cubit.loadAllArtwork
+                            ? CrossFadeState.showSecond
+                            : CrossFadeState.showFirst)),
               ],
             ),
           ),
         );
       },
+    );
+  }
+}
+
+class LoadingAllArtworkGridView extends StatelessWidget {
+  const LoadingAllArtworkGridView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimationLimiter(
+      child: SizedBox(
+        child: MasonryGridView.count(
+          crossAxisCount: 2,
+          mainAxisSpacing: 22.0,
+          crossAxisSpacing: 12.0,
+          itemCount: 5,
+          physics: const BouncingScrollPhysics(),
+          itemBuilder: (context, index) => index == 0
+              ? const SizedBox.shrink()
+              : AppCustomShimmer(
+            child: Container(
+              height: 200.0,
+              margin: const EdgeInsets.symmetric(
+                vertical: 8.0,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

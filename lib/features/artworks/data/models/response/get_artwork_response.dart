@@ -54,14 +54,19 @@ class ArtworkImage {
 
   const ArtworkImage({required this.image});
 
-  factory ArtworkImage.fromJson(Map<String, dynamic> json) => _$ArtworkImageFromJson(json);
+  factory ArtworkImage.fromJson(Map<String, dynamic> json) =>
+      _$ArtworkImageFromJson(json);
 }
 
 @JsonSerializable()
 class Owner {
-  final String id, name;
+  final String id, name, profileImg;
 
-  const Owner({required this.id, required this.name});
+  const Owner({
+    required this.id,
+    required this.name,
+    required this.profileImg,
+  });
 
   factory Owner.fromJson(Map<String, dynamic> json) => _$OwnerFromJson(json);
 }

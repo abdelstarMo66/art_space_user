@@ -4,19 +4,16 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theming/color_manager.dart';
-import '../../../../core/theming/text_style_manager.dart';
 import '../../../../core/widgets/app_network_image.dart';
 
 class ArtworkDetailsImagesItem extends StatefulWidget {
   final String coverImage;
-  final String price;
   final List<ArtworkImage> images;
 
   const ArtworkDetailsImagesItem({
     super.key,
     required this.coverImage,
     required this.images,
-    required this.price,
   });
 
   @override
@@ -44,12 +41,11 @@ class _ArtworkDetailsImagesItemState extends State<ArtworkDetailsImagesItem> {
       children: [
         CarouselSlider.builder(
           itemCount: images.length,
-          itemBuilder:
-              (BuildContext context, int index, int pageViewIndex) =>
-                  ClipRRect(
+          itemBuilder: (BuildContext context, int index, int pageViewIndex) =>
+              ClipRRect(
             borderRadius: BorderRadius.circular(12.0),
-            child: AppNetworkImage(
-                image: images[index], width: double.maxFinite),
+            child:
+                AppNetworkImage(image: images[index], width: double.maxFinite),
           ),
           options: CarouselOptions(
             viewportFraction: 0.96,
@@ -94,92 +90,6 @@ class _ArtworkDetailsImagesItemState extends State<ArtworkDetailsImagesItem> {
               ),
             ],
           ],
-        ),
-      ],
-    );
-  }
-}
-
-class ArtworkDetailsImagesItem2 extends StatefulWidget {
-  final String coverImage;
-  final List<ArtworkImage> images;
-
-  const ArtworkDetailsImagesItem2({
-    super.key,
-    required this.coverImage,
-    required this.images,
-  });
-
-  @override
-  State<ArtworkDetailsImagesItem2> createState() =>
-      _ArtworkDetailsImagesItem2State();
-}
-
-class _ArtworkDetailsImagesItem2State extends State<ArtworkDetailsImagesItem2>
-    with TickerProviderStateMixin {
-  final List<String> images = [];
-  int selectedImage = 0;
-  late AnimationController fadeAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    images.add(widget.coverImage);
-    for (int i = 0; i < widget.images.length; i++) {
-      images.add(widget.images[i].image);
-    }
-    fadeAnimation = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 800),
-    )..forward();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12.0),
-          child: FadeTransition(
-            opacity: fadeAnimation,
-            child: AppNetworkImage(
-              image: images[selectedImage],
-              width: double.infinity,
-            ),
-          ),
-        ),
-        verticalSpace(8.0),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              for (int i = 0; i < images.length; i++) ...[
-                if (i != selectedImage)
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedImage = i;
-                        fadeAnimation = AnimationController(
-                          vsync: this,
-                          duration: const Duration(milliseconds: 800),
-                        )..forward();
-                      });
-                    },
-                    child: Opacity(
-                      opacity: 0.5,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: AppNetworkImage(
-                          image: images[i],
-                          width: 50.0,
-                          height: 50.0,
-                        ),
-                      ),
-                    ),
-                  ),
-              ]
-            ],
-          ),
         ),
       ],
     );

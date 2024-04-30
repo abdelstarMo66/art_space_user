@@ -5,6 +5,7 @@ import 'package:art_space_user/core/routing/routes.dart';
 import 'package:art_space_user/features/artist/logic/artist_cubit.dart';
 import 'package:art_space_user/features/artist/ui/artist_screen.dart';
 import 'package:art_space_user/features/artworks/logic/artwork_cubit.dart';
+import 'package:art_space_user/features/artworks/ui/ar_preview_screen.dart';
 import 'package:art_space_user/features/artworks/ui/artwork_details_screen.dart';
 import 'package:art_space_user/features/artworks/ui/artworks_screen.dart';
 import 'package:art_space_user/features/auth/logic/forget_password/forget_password_cubit.dart';
@@ -19,6 +20,8 @@ import 'package:art_space_user/features/bottom_navigation_bar/bottom_navigation_
 import 'package:art_space_user/features/exhibitions/logic/exhibition_cubit.dart';
 import 'package:art_space_user/features/exhibitions/ui/exhibition_details_screen.dart';
 import 'package:art_space_user/features/exhibitions/ui/exhibitions_screen.dart';
+import 'package:art_space_user/features/gallery/logic/gallery_cubit.dart';
+import 'package:art_space_user/features/gallery/ui/auction_details_screen.dart';
 import 'package:art_space_user/features/notification/ui/notification_screen.dart';
 import 'package:art_space_user/features/onboarding/ui/onboarding_screen.dart';
 import 'package:art_space_user/features/profile/logic/profile_cubit.dart';
@@ -207,6 +210,20 @@ class AppRouter {
             create: (context) => getIt<ArtistCubit>()
               ..emitArtistState(settings.arguments as String),
             child: const ArtistScreen(),
+          ),
+        );
+      case Routes.arPreview:
+        return AnimationRoute(
+          page: const ARPreviewScreen(),
+        );
+
+      // Auction
+      case Routes.auctionDetails:
+        return AnimationRoute(
+          page: BlocProvider.value(
+            value: getIt<GalleryCubit>()
+              ..emitGetAuctionState(auctionId: settings.arguments as String),
+            child: const AuctionDetailsScreen(),
           ),
         );
 

@@ -18,7 +18,7 @@ class ArtSpaceApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Art-Space',
-        initialRoute: Routes.splash,
+        initialRoute: Routes.arPreview,
         theme: ThemeManager.getLightTheme(),
         darkTheme: ThemeManager.getDarkTheme(),
         themeMode: ThemeMode.light,

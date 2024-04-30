@@ -21,6 +21,7 @@ class AppTextFormField extends StatelessWidget {
   final FocusNode? focusNode;
   final TextInputAction? textInputAction;
   final Function()? editAction;
+  final String? prefixText;
 
   const AppTextFormField({
     super.key,
@@ -40,6 +41,7 @@ class AppTextFormField extends StatelessWidget {
     this.focusNode,
     this.textInputAction,
     this.editAction,
+    this.prefixText,
   });
 
   @override
@@ -50,6 +52,7 @@ class AppTextFormField extends StatelessWidget {
       textInputAction: textInputAction,
       onEditingComplete: editAction,
       decoration: InputDecoration(
+        prefixText: prefixText,
         isDense: true,
         contentPadding: contentPadding ??
             EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),

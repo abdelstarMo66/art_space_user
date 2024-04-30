@@ -37,7 +37,11 @@ class Routes {
 
   // Artwork
   static const String artworkDetails = "artworkDetails";
+  static const String arPreview = "arPreview";
 
   // Artist
   static const String artist = "artist";
+
+  // Auction
+  static const String auctionDetails = "auctionDetails";
 }

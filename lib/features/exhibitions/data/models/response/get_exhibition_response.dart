@@ -44,11 +44,12 @@ class Data {
 
 @JsonSerializable()
 class Owner {
-  final String id, name;
+  final String id, name, profileImg;
 
   const Owner({
     required this.id,
     required this.name,
+    required this.profileImg,
   });
 
   factory Owner.fromJson(Map<String, dynamic> json) => _$OwnerFromJson(json);

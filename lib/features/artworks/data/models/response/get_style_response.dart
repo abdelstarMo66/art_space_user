@@ -7,7 +7,7 @@ part 'get_style_response.g.dart';
 class GetStyleResponse {
   final String message, status;
   final int code;
-  final Data data;
+  final List<Style> data;
 
   const GetStyleResponse({
     required this.message,
@@ -18,17 +18,6 @@ class GetStyleResponse {
 
   factory GetStyleResponse.fromJson(Map<String, dynamic> json) =>
       _$GetStyleResponseFromJson(json);
-}
-
-@JsonSerializable()
-class Data {
-  final List<Style> styles;
-
-  const Data({
-    required this.styles,
-  });
-
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 }
 
 @HiveType(typeId: 1)

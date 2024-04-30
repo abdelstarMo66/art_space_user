@@ -152,7 +152,6 @@ class ArtworkDetailsScreen extends StatelessWidget {
                           coverImage:
                               state.getArtworkResponse.data.coverImage.image,
                           images: state.getArtworkResponse.data.images,
-                          price: state.getArtworkResponse.data.price.toString(),
                         ),
                       ),
                       SliverToBoxAdapter(
@@ -227,7 +226,7 @@ class ArtworkDetailsScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(100.0),
                                   child: AppNetworkImage(
                                     image: state.getArtworkResponse.data
-                                        .coverImage.image,
+                                        .owner.profileImg,
                                     width: 45.0,
                                     height: 45.0,
                                   ),

@@ -95,7 +95,7 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                                 verticalSpace(8.0),
                                 Align(
                                   alignment: AlignmentDirectional.centerEnd,
-                                  child: InkWell(
+                                  child: GestureDetector(
                                     onTap: () => context.pushNamed(
                                       Routes.artist,
                                       arguments: state

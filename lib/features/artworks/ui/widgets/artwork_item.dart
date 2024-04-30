@@ -11,13 +11,13 @@ import '../../../../core/theming/text_style_manager.dart';
 class ArtworkItem extends StatelessWidget {
   final double? imageWidth;
   final double? imageHeight;
-  final AllArtworkModel? artworkModel;
+  final AllArtworkModel artworkModel;
 
   const ArtworkItem({
     super.key,
     this.imageWidth,
     this.imageHeight,
-    this.artworkModel,
+    required this.artworkModel,
   });
 
   @override
@@ -25,7 +25,7 @@ class ArtworkItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.pushNamed(
         Routes.artworkDetails,
-        arguments: artworkModel!.id,
+        arguments: artworkModel.id,
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12.0),
@@ -36,7 +36,7 @@ class ArtworkItem extends StatelessWidget {
               alignment: AlignmentDirectional.bottomStart,
               children: [
                 AppNetworkImage(
-                  image: artworkModel!.image,
+                  image: artworkModel.image,
                   width: imageWidth ?? double.maxFinite,
                   height: imageHeight,
                 ),
@@ -52,7 +52,7 @@ class ArtworkItem extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    "\$ ${artworkModel!.price}",
+                    "\$ ${artworkModel.price}",
                     style: TextStyleManager.font14OriginalWhiteSemiBold,
                   ),
                 ),
@@ -60,21 +60,21 @@ class ArtworkItem extends StatelessWidget {
             ),
             verticalSpace(12.0),
             Text(
-              artworkModel!.title,
+              artworkModel.title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyleManager.font20LightBlackBold,
             ),
             verticalSpace(2.0),
             Text(
-              artworkModel!.ownerName,
+              artworkModel.ownerName,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyleManager.font14LighterBlackRegular,
             ),
             verticalSpace(2.0),
             Text(
-              artworkModel!.category,
+              artworkModel.category,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyleManager.font14DarkPurpleSemiBold,
