@@ -4,7 +4,6 @@ import 'package:art_space_user/core/theming/color_manager.dart';
 import 'package:art_space_user/core/theming/text_style_manager.dart';
 import 'package:art_space_user/core/widgets/app_elevated_button.dart';
 import 'package:art_space_user/features/gallery/logic/gallery_cubit.dart';
-import 'package:art_space_user/features/gallery/logic/gallery_states.dart';
 import 'package:flutter/material.dart';
 
 class RegisterAuctionDialog extends StatelessWidget {
@@ -34,8 +33,15 @@ class RegisterAuctionDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "you are not registered in this auction, please register first and bid again",
+              "You are not Registered in this Auction, Please Register first and bid again",
               style: TextStyleManager.font18LightBlackSemiBold,
+            ),
+            verticalSpace(2.0),
+            Text(
+              "we will withdraw the \$100 subscription fee and will refund this amount if you do not win in this auction",
+              style: TextStyleManager.font14LightGrayMedium.copyWith(
+                color: ColorManager.gray.withOpacity(0.8),
+              ),
             ),
             verticalSpace(18.0),
             Row(

@@ -24,7 +24,9 @@ class ArtistSearchList extends StatelessWidget {
                     vertical: 12.0,
                   ),
                   physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => const ArtistSearchItem(),
+                  itemBuilder: (context, index) => ArtistSearchItem(
+                    artist: state.searchResponse.data.artists[index],
+                  ),
                   separatorBuilder: (context, index) => verticalSpace(18.0),
                   itemCount: state.searchResponse.data.artists.length,
                 )

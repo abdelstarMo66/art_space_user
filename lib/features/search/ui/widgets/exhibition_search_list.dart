@@ -1,9 +1,8 @@
 import 'package:art_space_user/core/theming/color_manager.dart';
 import 'package:art_space_user/core/widgets/no_thing.dart';
-import 'package:art_space_user/features/home/data/models/response/explore_exhibitions_response.dart';
-import 'package:art_space_user/features/home/ui/widgets/home_exhibition_item.dart';
 import 'package:art_space_user/features/search/logic/search_cubit.dart';
 import 'package:art_space_user/features/search/logic/search_state.dart';
+import 'package:art_space_user/features/search/ui/widgets/search_exhibition_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -25,8 +24,10 @@ class ExhibitionSearchList extends StatelessWidget {
                     vertical: 12.0,
                   ),
                   physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => const IntrinsicHeight(
-                    child: HomeExhibitionItem(),
+                  itemBuilder: (context, index) => IntrinsicHeight(
+                    child: SearchExhibitionItem(
+                      exhibition: state.searchResponse.data.events[index],
+                    ),
                   ),
                   separatorBuilder: (context, index) => verticalSpace(12.0),
                   itemCount: state.searchResponse.data.events.length,

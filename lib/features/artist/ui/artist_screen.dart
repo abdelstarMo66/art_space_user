@@ -1,4 +1,3 @@
-import 'package:art_space_user/core/helpers/extensions.dart';
 import 'package:art_space_user/core/helpers/spacing.dart';
 import 'package:art_space_user/core/theming/text_style_manager.dart';
 import 'package:art_space_user/core/widgets/custom_app_bar.dart';
@@ -30,12 +29,15 @@ class ArtistScreen extends StatelessWidget {
           return Scaffold(
             appBar: CustomAppBar(
               title: AnimatedOpacity(
-                opacity: state is ArtistSuccessState ? 1.0 : 0.0,
+                opacity:
+                    state is ArtistSuccessState || state is ChangeTapBarState
+                        ? 1.0
+                        : 0.0,
                 duration: const Duration(seconds: 1),
                 child: Text(
-                  state is ArtistSuccessState
-                      ? state.artistResponse.data.artist.email
-                      : "",
+                  state is ArtistSuccessState || state is ChangeTapBarState
+                      ? cubit.artistResponse.data.artist.email
+                      : " ",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyleManager.font14LightBlackMedium,

@@ -41,7 +41,7 @@ class Product {
   final String id, title, category;
   final num price;
   final bool isAvailable;
-  final String? profileImg;
+  final String? coverImage;
   final Owner owner;
 
   const Product({
@@ -50,7 +50,7 @@ class Product {
     required this.category,
     required this.price,
     required this.isAvailable,
-    required this.profileImg,
+    required this.coverImage,
     required this.owner,
   });
 
@@ -76,15 +76,18 @@ class Artist {
 
 @JsonSerializable()
 class Event {
-  final String title, began;
+  final String id, title, began;
+  final String? coverImage;
   final int duration;
   final Owner owner;
 
   const Event({
+    required this.id,
     required this.title,
     required this.began,
     required this.duration,
     required this.owner,
+    required this.coverImage,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
