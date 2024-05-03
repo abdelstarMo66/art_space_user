@@ -7,6 +7,7 @@ import 'package:art_space_user/core/widgets/no_thing.dart';
 import 'package:art_space_user/features/cart/logic/cart_cubit.dart';
 import 'package:art_space_user/features/cart/logic/cart_states.dart';
 import 'package:art_space_user/features/cart/ui/widgets/cart_item.dart';
+import 'package:art_space_user/features/cart/ui/widgets/order_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -78,7 +79,14 @@ class CartScreen extends StatelessWidget {
                               horizontal: 52.0, vertical: 12.0),
                           child: AppElevatedButton(
                             buttonHeight: 45.0,
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => OrderDialog(
+                                  cubit: cubit,
+                                ),
+                              );
+                            },
                             child: Text(
                               "Confirm Order",
                               style:

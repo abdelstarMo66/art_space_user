@@ -18,7 +18,7 @@ class AuctionInfoItem extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text: "$title:  ",
+            text: "$title: ",
             style: TextStyleManager.font22LightBlackBold
                 .copyWith(color: ColorManager.purple),
           ),

@@ -12,6 +12,7 @@ class AppTextFormField extends StatelessWidget {
   final TextStyle? hintStyle;
   final String hintText;
   final bool? isObscureText;
+  final bool? enabled;
   final Widget? suffixIcon;
   final Color? backgroundColor;
   final Color? backGroundColor;
@@ -32,6 +33,7 @@ class AppTextFormField extends StatelessWidget {
     this.hintStyle,
     required this.hintText,
     this.isObscureText,
+    this.enabled,
     this.suffixIcon,
     this.backgroundColor,
     this.backGroundColor,
@@ -51,6 +53,7 @@ class AppTextFormField extends StatelessWidget {
       focusNode: focusNode,
       textInputAction: textInputAction,
       onEditingComplete: editAction,
+      enabled: enabled,
       decoration: InputDecoration(
         prefixText: prefixText,
         isDense: true,

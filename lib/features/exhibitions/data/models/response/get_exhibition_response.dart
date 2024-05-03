@@ -6,7 +6,7 @@ part 'get_exhibition_response.g.dart';
 class GetExhibitionResponse {
   final String message, status;
   final int code;
-  final Data data;
+  final SingleExhibition data;
 
   const GetExhibitionResponse({
     required this.message,
@@ -20,14 +20,15 @@ class GetExhibitionResponse {
 }
 
 @JsonSerializable()
-class Data {
+class SingleExhibition {
   final String id, title, description, coverImage, began, end;
   final int duration;
   final Owner owner;
+  final bool userBookedThisEvent;
   @JsonKey(name: "products")
   final List<Artworks> artworks;
 
-  const Data({
+  const SingleExhibition({
     required this.id,
     required this.title,
     required this.description,
@@ -35,11 +36,13 @@ class Data {
     required this.began,
     required this.end,
     required this.duration,
+    required this.userBookedThisEvent,
     required this.owner,
     required this.artworks,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  factory SingleExhibition.fromJson(Map<String, dynamic> json) =>
+      _$SingleExhibitionFromJson(json);
 }
 
 @JsonSerializable()

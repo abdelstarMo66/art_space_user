@@ -1,3 +1,4 @@
+import 'package:art_space_user/features/exhibitions/data/models/response/book_exhibition_response.dart';
 import 'package:art_space_user/features/exhibitions/data/models/response/get_all_exhibitions_response.dart';
 import 'package:art_space_user/features/exhibitions/data/models/response/get_exhibition_response.dart';
 
@@ -31,4 +32,18 @@ class GetExhibitionFailure extends ExhibitionStates {
   final String message;
 
   GetExhibitionFailure(this.message);
+}
+
+class BookExhibitionLoading extends ExhibitionStates {}
+
+class BookExhibitionSuccess extends ExhibitionStates {
+  final BookExhibitionResponse bookExhibitionResponse;
+
+  BookExhibitionSuccess(this.bookExhibitionResponse);
+}
+
+class BookExhibitionFailure extends ExhibitionStates {
+  final String message;
+
+  BookExhibitionFailure(this.message);
 }

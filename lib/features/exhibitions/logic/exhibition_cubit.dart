@@ -1,6 +1,7 @@
 import 'package:art_space_user/core/networking/local/prefs_manager.dart';
 import 'package:art_space_user/core/networking/local/shared_preferences.dart';
 import 'package:art_space_user/core/networking/remote/api_error_handler.dart';
+import 'package:art_space_user/features/exhibitions/data/models/response/book_exhibition_response.dart';
 import 'package:art_space_user/features/exhibitions/data/models/response/get_exhibition_response.dart';
 import 'package:art_space_user/features/exhibitions/data/repos/exhibition_repo.dart';
 import 'package:art_space_user/features/exhibitions/logic/exhibition_state.dart';
@@ -16,6 +17,7 @@ class ExhibitionCubit extends Cubit<ExhibitionStates> {
   List<Exhibition> allExhibitions = [];
   num maxDuration = 14;
   num minDuration = 1;
+  SingleExhibition? singleExhibition;
 
   void emitGetAllExhibitions({
     String? sort,
@@ -57,10 +59,31 @@ class ExhibitionCubit extends Cubit<ExhibitionStates> {
 
     exhibition.when(
       success: (GetExhibitionResponse response) {
+        singleExhibition = response.data;
         emit(GetExhibitionSuccess(response));
       },
       failure: (ErrorHandler error) {
         emit(GetExhibitionFailure(error.apiErrorModel.message));
+      },
+    );
+  }
+
+  void emitBookExhibitionState({required String exhibitionId}) async {
+    emit(BookExhibitionLoading());
+
+    final exhibition = await _exhibitionRepo.bookExhibition(
+      token: SharedPreferencesManager.getData(
+        key: PrefsManager.token,
+      ),
+      exhibitionId: exhibitionId,
+    );
+
+    exhibition.when(
+      success: (BookExhibitionResponse response) {
+        emit(BookExhibitionSuccess(response));
+      },
+      failure: (ErrorHandler error) {
+        emit(BookExhibitionFailure(error.apiErrorModel.message));
       },
     );
   }

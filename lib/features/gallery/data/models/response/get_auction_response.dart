@@ -33,7 +33,7 @@ class Data {
   final String? material;
   final num price;
   final int duration;
-  final bool isAvailable, isLaunch, isEnded;
+  final bool isAvailable, isLaunch, isEnded, userRegisteredInThisAuction;
   final Artist artist;
   final ProductImage coverImage;
   final List<ProductImage> images;
@@ -55,6 +55,7 @@ class Data {
     required this.isAvailable,
     required this.isLaunch,
     required this.isEnded,
+    required this.userRegisteredInThisAuction,
     required this.artist,
     required this.coverImage,
     required this.images,

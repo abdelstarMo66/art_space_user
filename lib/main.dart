@@ -25,7 +25,7 @@ Future<void> main() async {
       Bloc.observer = MyBlocObserver();
       SharedPreferencesManager.init();
       await ScreenUtil.ensureScreenSize();
-      setupGetIt();
+      await setupGetIt();
       initSocket();
       await Hive.initFlutter();
       Hive.registerAdapter(CategoryAdapter());

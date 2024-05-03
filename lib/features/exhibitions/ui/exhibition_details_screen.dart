@@ -1,3 +1,4 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:art_space_user/core/helpers/extensions.dart';
 import 'package:art_space_user/core/helpers/spacing.dart';
 import 'package:art_space_user/core/routing/routes.dart';
@@ -24,24 +25,76 @@ class ExhibitionDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ExhibitionCubit, ExhibitionStates>(
       builder: (context, state) {
+        ExhibitionCubit cubit = context.read<ExhibitionCubit>();
+
         return Scaffold(
           appBar: const CustomAppBar(
             bgColor: ColorManager.transparent,
           ),
           extendBodyBehindAppBar: true,
-          bottomSheet: Container(
-            color: ColorManager.originalWhite,
-            padding:
-                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-            child: AppTextButton(
-              buttonText: "Book Exhibition",
-              borderRadius: 14.0,
-              buttonHeight: 55.0,
-              textStyle: TextStyleManager.font20OriginalWhiteSemiBold,
-              onPressed: () {},
-            ),
-          ),
-          body: state is GetExhibitionSuccess
+          bottomSheet: cubit.singleExhibition != null
+              ? !cubit.singleExhibition!.userBookedThisEvent
+                  ? BlocListener<ExhibitionCubit, ExhibitionStates>(
+                      listener: (context, state) {
+                        if (state is BookExhibitionSuccess) {
+                          AnimatedSnackBar.material(
+                            state.bookExhibitionResponse.message,
+                            type: AnimatedSnackBarType.success,
+                            animationCurve: Curves.fastEaseInToSlowEaseOut,
+                            mobileSnackBarPosition:
+                                MobileSnackBarPosition.bottom,
+                          ).show(context);
+                        }
+                        if (state is BookExhibitionFailure) {
+                          AnimatedSnackBar.material(
+                            state.message,
+                            type: AnimatedSnackBarType.error,
+                            animationCurve: Curves.fastEaseInToSlowEaseOut,
+                            mobileSnackBarPosition:
+                                MobileSnackBarPosition.bottom,
+                          ).show(context);
+                        }
+                      },
+                      child: Container(
+                        color: ColorManager.originalWhite,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24.0, vertical: 12.0),
+                        child: AnimatedCrossFade(
+                          firstChild: AppTextButton(
+                            buttonText: "Book Exhibition",
+                            borderRadius: 14.0,
+                            buttonHeight: 55.0,
+                            textStyle:
+                                TextStyleManager.font20OriginalWhiteSemiBold,
+                            onPressed: () => context.read<ExhibitionCubit>()
+                              .emitBookExhibitionState(
+                                  exhibitionId: cubit.singleExhibition!.id),
+                          ),
+                          secondChild: Container(
+                            height: 50.0,
+                            decoration: BoxDecoration(
+                              color: ColorManager.purple,
+                              borderRadius: BorderRadius.circular(14.0),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 12.0),
+                            child: Center(
+                              child: LoadingAnimationWidget.fourRotatingDots(
+                                color: ColorManager.originalWhite,
+                                size: 35.0,
+                              ),
+                            ),
+                          ),
+                          crossFadeState: state is BookExhibitionLoading
+                              ? CrossFadeState.showSecond
+                              : CrossFadeState.showFirst,
+                          duration: const Duration(milliseconds: 700),
+                        ),
+                      ),
+                    )
+                  : null
+              : null,
+          body: cubit.singleExhibition != null
               ? CustomScrollView(
                   slivers: [
                     SliverToBoxAdapter(
@@ -55,8 +108,7 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                               bottomLeft: Radius.circular(42.0),
                             ),
                             child: AppNetworkImage(
-                              image:
-                                  state.getExhibitionResponse.data.coverImage,
+                              image: cubit.singleExhibition!.coverImage,
                               width: double.maxFinite,
                             ),
                           ),
@@ -71,7 +123,7 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        state.getExhibitionResponse.data.title,
+                                        cubit.singleExhibition!.title,
                                         style: TextStyleManager
                                             .font22LightBlackBold,
                                       ),
@@ -89,7 +141,7 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                                 ),
                                 verticalSpace(12.0),
                                 Text(
-                                  state.getExhibitionResponse.data.description,
+                                  cubit.singleExhibition!.description,
                                   style: TextStyleManager.font16GrayRegular,
                                 ),
                                 verticalSpace(8.0),
@@ -98,12 +150,11 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                                   child: GestureDetector(
                                     onTap: () => context.pushNamed(
                                       Routes.artist,
-                                      arguments: state
-                                          .getExhibitionResponse.data.owner.id,
+                                      arguments:
+                                          cubit.singleExhibition!.owner.id,
                                     ),
                                     child: Text(
-                                      state.getExhibitionResponse.data.owner
-                                          .name,
+                                      cubit.singleExhibition!.owner.name,
                                       style: TextStyleManager
                                           .font16DarkPurpleSemiBold,
                                     ),
@@ -126,10 +177,8 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                                                     .font16DarkPurpleSemiBold,
                                               ),
                                               TextSpan(
-                                                text: state
-                                                    .getExhibitionResponse
-                                                    .data
-                                                    .began
+                                                text: cubit
+                                                    .singleExhibition!.began
                                                     .split("T")[0],
                                                 style: TextStyleManager
                                                     .font16LighterBlackRegular,
@@ -146,10 +195,8 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                                                     .font16DarkPurpleSemiBold,
                                               ),
                                               TextSpan(
-                                                text: state
-                                                    .getExhibitionResponse
-                                                    .data
-                                                    .end
+                                                text: cubit
+                                                    .singleExhibition!.end
                                                     .split("T")[0],
                                                 style: TextStyleManager
                                                     .font16LighterBlackRegular,
@@ -161,7 +208,7 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                                     ),
                                     const Spacer(),
                                     Text(
-                                      "${state.getExhibitionResponse.data.duration} days",
+                                      "${cubit.singleExhibition!.duration} days",
                                       style: TextStyleManager
                                           .font16DarkPurpleMedium,
                                     ),
@@ -207,9 +254,7 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             for (var i = 0;
-                                i <
-                                    state.getExhibitionResponse.data.artworks
-                                        .length;
+                                i < cubit.singleExhibition!.artworks.length;
                                 i++) ...[
                               Container(
                                 width: 180.0,
@@ -219,19 +264,18 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                                   imageWidth: 180.0,
                                   imageHeight: 150.0,
                                   artworkModel: AllArtworkModel(
-                                    id: state.getExhibitionResponse.data
-                                        .artworks[i].id,
-                                    title: state.getExhibitionResponse.data
-                                        .artworks[i].title,
-                                    price: state.getExhibitionResponse.data
-                                        .artworks[i].price
+                                    id: cubit.singleExhibition!.artworks[i].id,
+                                    title: cubit
+                                        .singleExhibition!.artworks[i].title,
+                                    price: cubit
+                                        .singleExhibition!.artworks[i].price
                                         .toString(),
-                                    image: state.getExhibitionResponse.data
-                                        .artworks[i].coverImage,
-                                    ownerName: state.getExhibitionResponse.data
+                                    image: cubit.singleExhibition!.artworks[i]
+                                        .coverImage,
+                                    ownerName: cubit.singleExhibition!
                                         .artworks[i].artist.name,
-                                    category: state.getExhibitionResponse.data
-                                        .artworks[i].category,
+                                    category: cubit
+                                        .singleExhibition!.artworks[i].category,
                                   ),
                                 ),
                               ),
@@ -240,9 +284,10 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SliverToBoxAdapter(
-                      child: verticalSpace(80.0),
-                    ),
+                    if (!cubit.singleExhibition!.userBookedThisEvent)
+                      SliverToBoxAdapter(
+                        child: verticalSpace(80.0),
+                      ),
                   ],
                 )
               : Center(

@@ -3,6 +3,9 @@ import 'package:art_space_user/features/gallery/data/models/request/bid_auction_
 import 'package:art_space_user/features/gallery/data/models/response/bid_auction_response.dart';
 import 'package:art_space_user/features/gallery/data/models/response/get_all_auctions_response.dart';
 import 'package:art_space_user/features/gallery/data/models/response/get_auction_response.dart';
+import 'package:art_space_user/features/gallery/data/models/response/get_booked_exhibitions_response.dart';
+import 'package:art_space_user/features/gallery/data/models/response/get_registered_auction_response.dart';
+import 'package:art_space_user/features/gallery/data/models/response/register_auction_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
@@ -30,5 +33,21 @@ abstract class GalleryApiService {
     @Header('Authorization') required String token,
     @Path('auctionId') required String actionId,
     @Body() required BidAuctionRequestBody bidAuctionRequestBody,
+  });
+
+  @GET(ApiConstants.getBookedExhibitions)
+  Future<GetBookedExhibitionsResponse> getBookedExhibitions({
+    @Header('Authorization') required String token,
+  });
+
+  @GET(ApiConstants.getRegisteredAuction)
+  Future<GetRegisteredAuctionResponse> getRegisteredAuction({
+    @Header('Authorization') required String token,
+  });
+
+  @GET(ApiConstants.registerAuction)
+  Future<RegisterAuctionResponse> registerAuction({
+    @Header('Authorization') required String token,
+    @Path('auctionId') required String actionId,
   });
 }

@@ -55,6 +55,8 @@ class AssetsManager {
   static const String icNoData = "${_icPath}ic_no_data.svg";
   static const String icGallery = "${_icPath}ic_gallery.svg";
   static const String icQueen = "${_icPath}ic_queen.svg";
+  static const String icCash = "${_icPath}ic_cash.svg";
+  static const String icVisa = "${_icPath}ic_visa.svg";
 
   // static const String icDownArrow = "${_icPath}ic_arrow_down.svg";
   // static const String icLocation = "${_icPath}ic_location.svg";

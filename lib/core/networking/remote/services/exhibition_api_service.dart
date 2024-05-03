@@ -1,4 +1,5 @@
 import 'package:art_space_user/core/utils/variable_manager.dart';
+import 'package:art_space_user/features/exhibitions/data/models/response/book_exhibition_response.dart';
 import 'package:art_space_user/features/exhibitions/data/models/response/get_all_exhibitions_response.dart';
 import 'package:art_space_user/features/exhibitions/data/models/response/get_exhibition_response.dart';
 import 'package:dio/dio.dart';
@@ -22,6 +23,12 @@ abstract class ExhibitionApiService {
 
   @GET(ApiConstants.getExhibition)
   Future<GetExhibitionResponse> getExhibition({
+    @Header('Authorization') required String token,
+    @Path("exhibitionId") required String exhibitionId,
+  });
+
+  @POST(ApiConstants.bookExhibition)
+  Future<BookExhibitionResponse> bookExhibition({
     @Header('Authorization') required String token,
     @Path("exhibitionId") required String exhibitionId,
   });

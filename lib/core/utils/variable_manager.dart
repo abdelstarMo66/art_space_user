@@ -39,6 +39,7 @@ class ApiConstants {
   // Exhibition
   static const String getAllExhibition = "events";
   static const String getExhibition = "events/{exhibitionId}";
+  static const String bookExhibition = "bookEvent/{exhibitionId}";
 
   // Home
   static const String exploreExhibition = "events";
@@ -51,7 +52,10 @@ class ApiConstants {
   // Gallery
   static const String getAllAuctions = "auction";
   static const String getAuction = "auction/product/{auctionId}";
+  static const String registerAuction = "/registerAuction/checkoutSession/{auctionId}";
   static const String bid = "auction/{auctionId}/updatePrice";
+  static const String getBookedExhibitions = "bookEvent";
+  static const String getRegisteredAuction = "registerAuction/registerAuctions";
 }
 
 class ApiErrors {

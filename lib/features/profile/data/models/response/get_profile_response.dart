@@ -22,7 +22,7 @@ class GetProfileResponse {
 @JsonSerializable()
 class Data {
   final String id, name, email, phone, gender;
-  final String? imageId, profileImg;
+  final String? profileImg;
   final bool accountActive;
   final List<Address> addresses;
 
@@ -32,7 +32,6 @@ class Data {
     required this.email,
     required this.phone,
     required this.gender,
-    this.imageId,
     this.profileImg,
     required this.accountActive,
     required this.addresses,
