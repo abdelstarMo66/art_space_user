@@ -31,6 +31,7 @@ import 'package:art_space_user/features/profile/ui/change_password_screen.dart';
 import 'package:art_space_user/features/profile/ui/community_guidelines_screen.dart';
 import 'package:art_space_user/features/profile/ui/help_center_screen.dart';
 import 'package:art_space_user/features/profile/ui/my_profile_screen.dart';
+import 'package:art_space_user/features/profile/ui/order_details_screen.dart';
 import 'package:art_space_user/features/profile/ui/report_problem_screen.dart';
 import 'package:art_space_user/features/profile/ui/terms_of_use_screen.dart';
 import 'package:art_space_user/features/profile/ui/your_order_screen.dart';
@@ -133,11 +134,24 @@ class AppRouter {
           ),
         );
       case Routes.yourOrder:
-        return AnimationRoute(page: const YourOrderScreen());
+        return AnimationRoute(
+          page: BlocProvider<ProfileCubit>.value(
+            value: getIt<ProfileCubit>()..emitOrdersState(),
+            child: const YourOrderScreen(),
+          ),
+        );
+      case Routes.orderDetails:
+        return AnimationRoute(
+          page: BlocProvider<ProfileCubit>.value(
+            value: getIt<ProfileCubit>()
+              ..emitOrderState(settings.arguments as String),
+            child: const OrderDetailsScreen(),
+          ),
+        );
       case Routes.addresses:
         return AnimationRoute(
           page: BlocProvider.value(
-            value: getIt<ProfileCubit>(),
+            value: getIt<ProfileCubit>()..emitGetAddressesState(),
             child: const AddressesScreen(),
           ),
         );

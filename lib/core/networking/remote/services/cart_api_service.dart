@@ -1,6 +1,10 @@
 import 'package:art_space_user/core/utils/variable_manager.dart';
 import 'package:art_space_user/features/cart/data/models/request/add_cart_request_body.dart';
+import 'package:art_space_user/features/cart/data/models/request/create_card_order_request_body.dart';
+import 'package:art_space_user/features/cart/data/models/request/create_cash_order_request_body.dart';
 import 'package:art_space_user/features/cart/data/models/response/add_cart_response.dart';
+import 'package:art_space_user/features/cart/data/models/response/create_card_order_response.dart';
+import 'package:art_space_user/features/cart/data/models/response/create_cash_order_response.dart';
 import 'package:art_space_user/features/cart/data/models/response/delete_cart_response.dart';
 import 'package:art_space_user/features/cart/data/models/response/get_cart_response.dart';
 import 'package:dio/dio.dart';
@@ -27,5 +31,19 @@ abstract class CartApiService {
   Future<DeleteCartResponse> deleteCart({
     @Header('Authorization') required String token,
     @Path("productId") required String productId,
+  });
+
+  @POST(ApiConstants.cashOrder)
+  Future<CreateCashOrderResponse> createCashOrder({
+    @Header('Authorization') required String token,
+    @Path("cartId") required String cartId,
+    @Body() required CreateCashOrderRequestBody cashOrderRequestBody,
+  });
+
+  @GET(ApiConstants.cardOrder)
+  Future<CreateCardOrderResponse> createCardOrder({
+    @Header('Authorization') required String token,
+    @Path("cartId") required String cartId,
+    @Body() required CreateCardOrderRequestBody cardOrderRequestBody,
   });
 }

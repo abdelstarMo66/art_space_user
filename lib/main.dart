@@ -4,7 +4,6 @@ import 'package:art_space_user/app/art_space_app.dart';
 import 'package:art_space_user/core/di/dependency_injection.dart';
 import 'package:art_space_user/core/networking/local/shared_preferences.dart';
 import 'package:art_space_user/core/routing/app_router.dart';
-import 'package:art_space_user/core/utils/socket_io_init.dart';
 import 'package:art_space_user/features/artworks/data/models/response/get_subject_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,7 +25,7 @@ Future<void> main() async {
       SharedPreferencesManager.init();
       await ScreenUtil.ensureScreenSize();
       await setupGetIt();
-      initSocket();
+      // initSocket();
       await Hive.initFlutter();
       Hive.registerAdapter(CategoryAdapter());
       Hive.registerAdapter(StyleAdapter());

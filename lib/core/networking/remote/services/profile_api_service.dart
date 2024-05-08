@@ -7,13 +7,15 @@ import 'package:art_space_user/features/profile/data/models/request/update_profi
 import 'package:art_space_user/features/profile/data/models/response/add_address_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/change_password_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/delete_address_response.dart';
+import 'package:art_space_user/features/profile/data/models/response/get_addresses_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/get_profile_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/update_profile_image_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/update_profile_response.dart';
+import 'package:art_space_user/features/profile/data/models/response/your_order_response.dart';
+import 'package:art_space_user/features/profile/data/models/response/your_orders_response.dart';
 import 'package:dio/dio.dart';
-import 'package:retrofit/http.dart';
 import 'package:http_parser/http_parser.dart';
-
+import 'package:retrofit/http.dart';
 
 part 'profile_api_service.g.dart';
 
@@ -50,10 +52,26 @@ abstract class ProfileApiService {
     @Path("addressId") required String addressId,
   });
 
+  @GET(ApiConstants.address)
+  Future<GetAddressResponse> getAddresses({
+    @Header("Authorization") required String token,
+  });
+
   @PUT(ApiConstants.updateImage)
   @MultiPart()
   Future<UpdateProfileImageResponse> updateProfileImage({
     @Header("Authorization") required String token,
     @Part(contentType: "image/*") required File profileImg,
+  });
+
+  @GET(ApiConstants.orders)
+  Future<YourOrdersResponse> orders({
+    @Header("Authorization") required String token,
+  });
+
+  @GET(ApiConstants.orderDetails)
+  Future<YourOrderResponse> orderDetails({
+    @Header("Authorization") required String token,
+    @Path("orderId") required String orderId,
   });
 }

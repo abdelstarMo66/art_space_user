@@ -1,4 +1,5 @@
 import 'package:art_space_user/core/helpers/extensions.dart';
+import 'package:art_space_user/features/profile/data/models/response/get_addresses_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/get_profile_response.dart';
 import 'package:art_space_user/features/profile/logic/profile_cubit.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import '../../../../core/theming/text_style_manager.dart';
 import '../../../../core/utils/assets_manager.dart';
 
 class AddressItem extends StatelessWidget {
-  final Address address;
+  final AddressData address;
 
   const AddressItem({super.key, required this.address});
 

@@ -1,9 +1,12 @@
 import 'package:art_space_user/features/profile/data/models/response/add_address_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/change_password_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/delete_address_response.dart';
+import 'package:art_space_user/features/profile/data/models/response/get_addresses_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/get_profile_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/update_profile_image_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/update_profile_response.dart';
+import 'package:art_space_user/features/profile/data/models/response/your_order_response.dart';
+import 'package:art_space_user/features/profile/data/models/response/your_orders_response.dart';
 
 abstract class ProfileStates {}
 
@@ -86,6 +89,21 @@ final class DeleteAddressFailureState extends ProfileStates {
   DeleteAddressFailureState(this.message);
 }
 
+// GetAddress
+final class GetAddressLoadingState extends ProfileStates {}
+
+final class GetAddressSuccessState extends ProfileStates {
+  final GetAddressResponse getAddressResponse;
+
+  GetAddressSuccessState(this.getAddressResponse);
+}
+
+final class GetAddressFailureState extends ProfileStates {
+  final String message;
+
+  GetAddressFailureState(this.message);
+}
+
 // UpdateProfileImage
 final class UpdateProfileImageLoadingState extends ProfileStates {}
 
@@ -99,4 +117,34 @@ final class UpdateProfileImageFailureState extends ProfileStates {
   final String message;
 
   UpdateProfileImageFailureState(this.message);
+}
+
+// YourOrders
+final class YourOrdersLoadingState extends ProfileStates {}
+
+final class YourOrdersSuccessState extends ProfileStates {
+  final YourOrdersResponse yourOrdersResponse;
+
+  YourOrdersSuccessState(this.yourOrdersResponse);
+}
+
+final class YourOrdersFailureState extends ProfileStates {
+  final String message;
+
+  YourOrdersFailureState(this.message);
+}
+
+// YourOrder
+final class YourOrderLoadingState extends ProfileStates {}
+
+final class YourOrderSuccessState extends ProfileStates {
+  final YourOrderResponse yourOrdersResponse;
+
+  YourOrderSuccessState(this.yourOrdersResponse);
+}
+
+final class YourOrderFailureState extends ProfileStates {
+  final String message;
+
+  YourOrderFailureState(this.message);
 }

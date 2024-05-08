@@ -22,6 +22,8 @@ class ApiConstants {
   static const String updateImage = "users/updateImage";
   static const String address = "users/address";
   static const String removeAddress = "users/address/{addressId}";
+  static const String orders = "order/me";
+  static const String orderDetails = "order/{orderId}";
 
   // Search
   static const String search = "search/user";
@@ -48,6 +50,8 @@ class ApiConstants {
   // Cart
   static const String cart = "cart";
   static const String deleteCart = "cart/{productId}";
+  static const String cashOrder = "order/cash/{cartId}";
+  static const String cardOrder = "order/checkoutSession/{cartId}";
 
   // Gallery
   static const String getAllAuctions = "auction";

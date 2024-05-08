@@ -9,15 +9,16 @@ import 'package:art_space_user/features/profile/data/models/request/update_profi
 import 'package:art_space_user/features/profile/data/models/response/add_address_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/change_password_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/delete_address_response.dart';
+import 'package:art_space_user/features/profile/data/models/response/get_addresses_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/get_profile_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/update_profile_image_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/update_profile_response.dart';
+import 'package:art_space_user/features/profile/data/models/response/your_order_response.dart';
+import 'package:art_space_user/features/profile/data/models/response/your_orders_response.dart';
 import 'package:art_space_user/features/profile/data/repos/profile_repo.dart';
 import 'package:art_space_user/features/profile/logic/profile_state.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http_parser/http_parser.dart'; // Add this import
 import 'package:image_picker/image_picker.dart';
 
 class ProfileCubit extends Cubit<ProfileStates> {
@@ -46,6 +47,8 @@ class ProfileCubit extends Cubit<ProfileStates> {
   final GlobalKey<FormState> addAddressFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> profileFormKey = GlobalKey<FormState>();
   GetProfileResponse? profile;
+  List<AddressData> addresses = [];
+  List<Orders> orders = [];
 
   void clearAddAddressControllers() {
     addressAliasController.clear();
@@ -114,7 +117,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
     final response = await _profileRepo.updateProfile(
       token: SharedPreferencesManager.getData(key: PrefsManager.token),
-      updateProfileRequesBody: UpdateProfileRequestBody(
+      updateProfileRequestBody: UpdateProfileRequestBody(
         name: nameController.text,
         phone: phoneController.text,
       ),
@@ -148,6 +151,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
     response.when(
       success: (AddAddressResponse response) {
+        emitGetAddressesState();
         emit(AddAddressSuccessState(response));
       },
       failure: (ErrorHandler error) {
@@ -174,12 +178,24 @@ class ProfileCubit extends Cubit<ProfileStates> {
     );
   }
 
-  // Future<File> getImage() async {
-  //   final ImagePicker picker = ImagePicker();
-  //   final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-  //   File file = File(image!.path);
-  //   return file;
-  // }
+  Future<void> emitGetAddressesState() async {
+    addresses = [];
+    emit(GetAddressLoadingState());
+
+    final response = await _profileRepo.getAddresses(
+      token: SharedPreferencesManager.getData(key: PrefsManager.token),
+    );
+
+    response.when(
+      success: (GetAddressResponse response) {
+        addresses = response.data;
+        emit(GetAddressSuccessState(response));
+      },
+      failure: (ErrorHandler error) {
+        emit(GetAddressFailureState(error.apiErrorModel.message));
+      },
+    );
+  }
 
   void emitUpdateProfileImageState() async {
     emit(UpdateProfileImageLoadingState());
@@ -211,6 +227,43 @@ class ProfileCubit extends Cubit<ProfileStates> {
       },
       failure: (ErrorHandler error) {
         emit(UpdateProfileImageFailureState(error.apiErrorModel.message));
+      },
+    );
+  }
+
+  void emitOrdersState() async {
+    orders = [];
+    emit(YourOrdersLoadingState());
+
+    final response = await _profileRepo.orders(
+      token: SharedPreferencesManager.getData(key: PrefsManager.token),
+    );
+
+    response.when(
+      success: (YourOrdersResponse response) {
+        orders = response.data;
+        emit(YourOrdersSuccessState(response));
+      },
+      failure: (ErrorHandler error) {
+        emit(YourOrdersFailureState(error.apiErrorModel.message));
+      },
+    );
+  }
+
+  void emitOrderState(String orderId) async {
+    emit(YourOrderLoadingState());
+
+    final response = await _profileRepo.orderDetails(
+      token: SharedPreferencesManager.getData(key: PrefsManager.token),
+      orderId: orderId
+    );
+
+    response.when(
+      success: (YourOrderResponse response) {
+        emit(YourOrderSuccessState(response));
+      },
+      failure: (ErrorHandler error) {
+        emit(YourOrderFailureState(error.apiErrorModel.message));
       },
     );
   }

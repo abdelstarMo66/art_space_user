@@ -77,9 +77,9 @@ class Owner {
 
 @JsonSerializable()
 class Image {
-  final String profileImg;
+  final String image;
 
-  const Image({required this.profileImg});
+  const Image({required this.image});
 
   factory Image.fromJson(Map<String, dynamic> json) => _$ImageFromJson(json);
 }

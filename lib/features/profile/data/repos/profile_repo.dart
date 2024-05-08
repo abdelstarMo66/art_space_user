@@ -9,9 +9,12 @@ import 'package:art_space_user/features/profile/data/models/request/update_profi
 import 'package:art_space_user/features/profile/data/models/response/add_address_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/change_password_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/delete_address_response.dart';
+import 'package:art_space_user/features/profile/data/models/response/get_addresses_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/get_profile_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/update_profile_image_response.dart';
 import 'package:art_space_user/features/profile/data/models/response/update_profile_response.dart';
+import 'package:art_space_user/features/profile/data/models/response/your_order_response.dart';
+import 'package:art_space_user/features/profile/data/models/response/your_orders_response.dart';
 
 class ProfileRepo {
   final ProfileApiService _profileApiService;
@@ -46,12 +49,12 @@ class ProfileRepo {
 
   Future<ApiResult<UpdateProfileResponse>> updateProfile({
     required String token,
-    required UpdateProfileRequestBody updateProfileRequesBody,
+    required UpdateProfileRequestBody updateProfileRequestBody,
   }) async {
     try {
       final response = await _profileApiService.updateProfile(
         token: "Bearer $token",
-        updateProfileRequest: updateProfileRequesBody,
+        updateProfileRequest: updateProfileRequestBody,
       );
       return ApiResult.success(response);
     } catch (error) {
@@ -89,6 +92,19 @@ class ProfileRepo {
     }
   }
 
+  Future<ApiResult<GetAddressResponse>> getAddresses({
+    required String token,
+  }) async {
+    try {
+      final response = await _profileApiService.getAddresses(
+        token: "Bearer $token",
+      );
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
   Future<ApiResult<UpdateProfileImageResponse>> updateProfileImage({
     required String token,
     required File profileImage,
@@ -100,7 +116,30 @@ class ProfileRepo {
       );
       return ApiResult.success(response);
     } catch (error) {
-      print(error);
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
+  Future<ApiResult<YourOrdersResponse>> orders({required String token}) async {
+    try {
+      final response = await _profileApiService.orders(token: "Bearer $token");
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
+  Future<ApiResult<YourOrderResponse>> orderDetails({
+    required String token,
+    required String orderId,
+  }) async {
+    try {
+      final response = await _profileApiService.orderDetails(
+        token: "Bearer $token",
+        orderId: orderId,
+      );
+      return ApiResult.success(response);
+    } catch (error) {
       return ApiResult.failure(ErrorHandler.handle(error));
     }
   }

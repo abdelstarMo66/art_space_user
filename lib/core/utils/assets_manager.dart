@@ -18,6 +18,8 @@ class AssetsManager {
   // GIFs
   static const String gifOne = "${_gifPath}404.gif";
   static const String gifLoading = "${_gifPath}loading.gif";
+  static const String gifDeliveryDone = "${_gifPath}delivery_done.gif";
+  static const String gifDeliveryWait = "${_gifPath}delivery_wait.gif";
 
   // icons
   static const String icLogo = "${_icPath}logo.svg";
@@ -57,6 +59,7 @@ class AssetsManager {
   static const String icQueen = "${_icPath}ic_queen.svg";
   static const String icCash = "${_icPath}ic_cash.svg";
   static const String icVisa = "${_icPath}ic_visa.svg";
+  static const String icDelivery = "${_icPath}ic_delivery.svg";
 
   // static const String icDownArrow = "${_icPath}ic_arrow_down.svg";
   // static const String icLocation = "${_icPath}ic_location.svg";

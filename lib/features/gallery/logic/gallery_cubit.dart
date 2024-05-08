@@ -1,4 +1,3 @@
-import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:art_space_user/core/networking/local/prefs_manager.dart';
 import 'package:art_space_user/core/networking/local/shared_preferences.dart';
 import 'package:art_space_user/core/networking/remote/api_error_handler.dart';
@@ -14,7 +13,6 @@ import 'package:art_space_user/features/gallery/data/repos/gallery_repo.dart';
 import 'package:art_space_user/features/gallery/logic/gallery_states.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class GalleryCubit extends Cubit<GalleryStates> {
   final GalleryRepo _galleryRepo;
@@ -51,6 +49,7 @@ class GalleryCubit extends Cubit<GalleryStates> {
 
   void emitGetAuctionState({required String auctionId}) async {
     emit(GetAuctionLoadingState());
+    initSocket();
 
     final auction = await _galleryRepo.getAuction(
       token: SharedPreferencesManager.getData(key: PrefsManager.token),
@@ -162,18 +161,5 @@ class GalleryCubit extends Cubit<GalleryStates> {
         emit(RegisterAuctionFailureState(error.apiErrorModel.message));
       },
     );
-  }
-
-  Future<void> launchURL(context, {required String url}) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      AnimatedSnackBar.material(
-        "can't launch this url, please try again later'",
-        type: AnimatedSnackBarType.error,
-        animationCurve: Curves.fastEaseInToSlowEaseOut,
-        mobileSnackBarPosition: MobileSnackBarPosition.bottom,
-      ).show(context);
-    }
   }
 }

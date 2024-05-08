@@ -24,6 +24,7 @@ class Routes {
   // Profile
   static const String myProfile = "myProfile";
   static const String yourOrder = "yourOrder";
+  static const String orderDetails = "orderDetails";
   static const String addresses = "addresses";
   static const String changePassword = "changePassword";
   static const String reportProblem = "reportProblem";

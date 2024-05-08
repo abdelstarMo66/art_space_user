@@ -4,6 +4,7 @@ import 'package:art_space_user/core/helpers/spacing.dart';
 import 'package:art_space_user/core/routing/routes.dart';
 import 'package:art_space_user/core/theming/font_manager.dart';
 import 'package:art_space_user/core/theming/text_style_manager.dart';
+import 'package:art_space_user/core/utils/launch_url_function.dart';
 import 'package:art_space_user/core/widgets/app_elevated_button.dart';
 import 'package:art_space_user/core/widgets/app_network_image.dart';
 import 'package:art_space_user/core/widgets/app_text_button.dart';
@@ -63,10 +64,8 @@ class AuctionDetailsScreen extends StatelessWidget {
                         }
                         if (state is RegisterAuctionSuccessState) {
                           context.pop();
-                          cubit.launchURL(context,
+                          launchURL(context,
                               url: state.registerAuctionResponse.data.url);
-                          // cubit.launchURL(context, url: "https://www.google.com");
-                          //TODO: launch URL stripe
                         }
                       },
                       child: Container(

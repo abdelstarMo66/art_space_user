@@ -4,6 +4,7 @@ import 'package:art_space_user/core/routing/routes.dart';
 import 'package:art_space_user/core/theming/text_style_manager.dart';
 import 'package:art_space_user/core/widgets/app_text_button.dart';
 import 'package:art_space_user/core/widgets/custom_app_bar.dart';
+import 'package:art_space_user/core/widgets/no_thing.dart';
 import 'package:art_space_user/features/profile/logic/profile_cubit.dart';
 import 'package:art_space_user/features/profile/logic/profile_state.dart';
 import 'package:art_space_user/features/profile/ui/widgets/address_item.dart';
@@ -55,22 +56,13 @@ class AddressesScreen extends StatelessWidget {
           return CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: [
-              if (context.read<ProfileCubit>().profile != null) ...[
-                SliverList.builder(
-                  itemCount: context
-                      .read<ProfileCubit>()
-                      .profile!
-                      .data
-                      .addresses
-                      .length,
+              if (state is GetAddressSuccessState) ...[
+                state.getAddressResponse.data.isNotEmpty?SliverList.builder(
+                  itemCount: state.getAddressResponse.data.length,
                   itemBuilder: (BuildContext context, int index) => AddressItem(
-                    address: context
-                        .read<ProfileCubit>()
-                        .profile!
-                        .data
-                        .addresses[index],
+                    address: state.getAddressResponse.data[index],
                   ),
-                ),
+                ): const NoThingWidget(),
               ] else ...[
                 SliverToBoxAdapter(
                   child: AppCustomShimmer(

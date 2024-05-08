@@ -17,115 +17,117 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // TODO: Navigate To Details Screen
-      },
-      onLongPress: () {
-        // TODO: Add To Favourites List And Show Cool Animation
-      },
-      child: Card(
-        margin: const EdgeInsets.symmetric(vertical: 8.0),
-        color: ColorManager.moreLightGray,
-        elevation: 0.2,
-        shadowColor: ColorManager.transparent,
-        shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            ClipRRect(
-              borderRadius: const BorderRadiusDirectional.only(
-                topStart: Radius.circular(12.0),
-                bottomStart: Radius.circular(12.0),
-              ),
-              child: AppNetworkImage(
-                image: product.coverImage.profileImg,
-                width: 110.0,
-                height: 140.0,
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsetsDirectional.only(
-                  end: 8.0,
-                  start: 12.0,
-                  top: 8.0,
-                  bottom: 4.0,
+    return SizedBox(
+      height: 175.0,
+      child: GestureDetector(
+        onTap: () {
+          // TODO: Navigate To Details Screen
+        },
+        child: Card(
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
+          color: ColorManager.moreLightGray,
+          elevation: 0.2,
+          shadowColor: ColorManager.transparent,
+          shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: const BorderRadiusDirectional.only(
+                    topStart: Radius.circular(12.0),
+                    bottomStart: Radius.circular(12.0),
+                  ),
+                  child: AppNetworkImage(
+                    image: product.coverImage.image,
+                    height: double.maxFinite,
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text(
-                      product.title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyleManager.font24OLightBlackSemiBold,
-                    ),
-                    verticalSpace(4.0),
-                    Text(
-                      product.owner.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyleManager.font16DarkPurpleSemiBold,
-                    ),
-                    verticalSpace(4.0),
-                    Row(
-                      children: [
-                        Text(
-                          "💵 ${product.price.toDouble()}",
-                          textAlign: TextAlign.center,
-                          style: TextStyleManager.font20DarkPurpleSemiBold,
-                        ),
-                        const Spacer(),
-                        BlocListener<CartCubit, CartStates>(
-                          listener: (context, state) {
-                            if (state is DeleteCartSuccessState) {
-                              AnimatedSnackBar.material(
-                                state.deleteCartResponse.message,
-                                type: AnimatedSnackBarType.success,
-                                animationCurve: Curves.fastEaseInToSlowEaseOut,
-                                mobileSnackBarPosition: MobileSnackBarPosition.bottom,
-                              ).show(context);
-                            }
-                            if (state is DeleteCartFailureState) {
-                              AnimatedSnackBar.material(
-                                state.message,
-                                type: AnimatedSnackBarType.error,
-                                animationCurve: Curves.fastEaseInToSlowEaseOut,
-                                mobileSnackBarPosition: MobileSnackBarPosition.bottom,
-                              ).show(context);
-                            }
-                          },
-                          child: GestureDetector(
-                            onTap: () =>
-                                context
-                                    .read<CartCubit>()
-                                    .emitRemoveProductFromCartState(product.id),
-                            child: Card(
-                              surfaceTintColor: Colors.white,
-                              color: Colors.white,
-                              elevation: 0.8,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 4.0),
-                                child: Text(
-                                  "Remove",
-                                  style: TextStyleManager.font16DarkPurpleMedium
-                                      .copyWith(color: ColorManager.lightBlack),
+              ),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    end: 8.0,
+                    start: 12.0,
+                    top: 8.0,
+                    bottom: 4.0,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text(
+                        product.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyleManager.font24OLightBlackSemiBold,
+                      ),
+                      verticalSpace(4.0),
+                      Text(
+                        product.owner.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyleManager.font16DarkPurpleSemiBold,
+                      ),
+                      verticalSpace(4.0),
+                      Row(
+                        children: [
+                          Text(
+                            "💵 ${product.price.toDouble()}",
+                            textAlign: TextAlign.center,
+                            style: TextStyleManager.font20DarkPurpleSemiBold,
+                          ),
+                          const Spacer(),
+                          BlocListener<CartCubit, CartStates>(
+                            listener: (context, state) {
+                              if (state is DeleteCartSuccessState) {
+                                AnimatedSnackBar.material(
+                                  state.deleteCartResponse.message,
+                                  type: AnimatedSnackBarType.success,
+                                  animationCurve: Curves.fastEaseInToSlowEaseOut,
+                                  mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+                                ).show(context);
+                              }
+                              if (state is DeleteCartFailureState) {
+                                AnimatedSnackBar.material(
+                                  state.message,
+                                  type: AnimatedSnackBarType.error,
+                                  animationCurve: Curves.fastEaseInToSlowEaseOut,
+                                  mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+                                ).show(context);
+                              }
+                            },
+                            child: GestureDetector(
+                              onTap: () =>
+                                  context
+                                      .read<CartCubit>()
+                                      .emitRemoveProductFromCartState(product.id),
+                              child: Card(
+                                surfaceTintColor: Colors.white,
+                                color: Colors.white,
+                                elevation: 0.8,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0, vertical: 4.0),
+                                  child: Text(
+                                    "Remove",
+                                    style: TextStyleManager.font16DarkPurpleMedium
+                                        .copyWith(color: ColorManager.lightBlack),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

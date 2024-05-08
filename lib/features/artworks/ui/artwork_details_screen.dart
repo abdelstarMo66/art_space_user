@@ -72,72 +72,77 @@ class ArtworkDetailsScreen extends StatelessWidget {
             ],
           ),
           bottomSheet: state is GetArtworkSuccess
-              ? BlocProvider<CartCubit>(
-                  create: (context) => getIt<CartCubit>(),
-                  child: BlocConsumer<CartCubit, CartStates>(
-                    listener: (context, state) {
-                      if (state is AddCartSuccessState) {
-                        AnimatedSnackBar.material(
-                          state.addCartResponse.message,
-                          type: AnimatedSnackBarType.success,
-                          animationCurve: Curves.fastEaseInToSlowEaseOut,
-                          mobileSnackBarPosition: MobileSnackBarPosition.bottom,
-                        ).show(context);
-                      }
-                      if (state is AddCartFailureState) {
-                        AnimatedSnackBar.material(
-                          state.message,
-                          type: AnimatedSnackBarType.error,
-                          animationCurve: Curves.fastEaseInToSlowEaseOut,
-                          mobileSnackBarPosition: MobileSnackBarPosition.bottom,
-                        ).show(context);
-                      }
-                    },
-                    builder: (context, state) {
-                      return Container(
-                        color: ColorManager.originalWhite,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24.0,
-                          vertical: 12.0,
-                        ),
-                        child: AnimatedCrossFade(
-                          firstChild: AppTextButton(
-                            buttonText: "Add To Cart",
-                            borderRadius: 14.0,
-                            buttonHeight: 55.0,
-                            textStyle:
-                                TextStyleManager.font20OriginalWhiteSemiBold,
-                            onPressed: () {
-                              context
-                                  .read<CartCubit>()
-                                  .emitAddProductToCartState(productId);
-                            },
-                          ),
-                          secondChild: Container(
-                            height: 50.0,
-                            decoration: BoxDecoration(
-                              color: ColorManager.purple,
-                              borderRadius: BorderRadius.circular(14.0),
-                            ),
+              ? state.getArtworkResponse.data.isAvailable
+                  ? BlocProvider<CartCubit>(
+                      create: (context) => getIt<CartCubit>(),
+                      child: BlocConsumer<CartCubit, CartStates>(
+                        listener: (context, state) {
+                          if (state is AddCartSuccessState) {
+                            AnimatedSnackBar.material(
+                              state.addCartResponse.message,
+                              type: AnimatedSnackBarType.success,
+                              animationCurve: Curves.fastEaseInToSlowEaseOut,
+                              mobileSnackBarPosition:
+                                  MobileSnackBarPosition.bottom,
+                            ).show(context);
+                          }
+                          if (state is AddCartFailureState) {
+                            AnimatedSnackBar.material(
+                              state.message,
+                              type: AnimatedSnackBarType.error,
+                              animationCurve: Curves.fastEaseInToSlowEaseOut,
+                              mobileSnackBarPosition:
+                                  MobileSnackBarPosition.bottom,
+                            ).show(context);
+                          }
+                        },
+                        builder: (context, state) {
+                          return Container(
+                            color: ColorManager.originalWhite,
                             padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 12.0),
-                            child: Center(
-                              child: LoadingAnimationWidget.fourRotatingDots(
-                                color: ColorManager.originalWhite,
-                                size: 35.0,
-                              ),
+                              horizontal: 24.0,
+                              vertical: 12.0,
                             ),
-                          ),
-                          crossFadeState: state is AddCartLoadingState
-                              ? CrossFadeState.showSecond
-                              : CrossFadeState.showFirst,
-                          duration: const Duration(milliseconds: 700),
-                        ),
-                      );
-                    },
-                  ),
-                )
-              : const SizedBox.shrink(),
+                            child: AnimatedCrossFade(
+                              firstChild: AppTextButton(
+                                buttonText: "Add To Cart",
+                                borderRadius: 14.0,
+                                buttonHeight: 55.0,
+                                textStyle: TextStyleManager
+                                    .font20OriginalWhiteSemiBold,
+                                onPressed: () {
+                                  context
+                                      .read<CartCubit>()
+                                      .emitAddProductToCartState(productId);
+                                },
+                              ),
+                              secondChild: Container(
+                                height: 50.0,
+                                decoration: BoxDecoration(
+                                  color: ColorManager.purple,
+                                  borderRadius: BorderRadius.circular(14.0),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8.0, horizontal: 12.0),
+                                child: Center(
+                                  child:
+                                      LoadingAnimationWidget.fourRotatingDots(
+                                    color: ColorManager.originalWhite,
+                                    size: 35.0,
+                                  ),
+                                ),
+                              ),
+                              crossFadeState: state is AddCartLoadingState
+                                  ? CrossFadeState.showSecond
+                                  : CrossFadeState.showFirst,
+                              duration: const Duration(milliseconds: 700),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  : null
+              : null,
           body: state is GetArtworkSuccess
               ? Padding(
                   padding: const EdgeInsets.symmetric(
@@ -225,8 +230,8 @@ class ArtworkDetailsScreen extends StatelessWidget {
                                 leading: ClipRRect(
                                   borderRadius: BorderRadius.circular(100.0),
                                   child: AppNetworkImage(
-                                    image: state.getArtworkResponse.data
-                                        .owner.profileImg,
+                                    image: state.getArtworkResponse.data.owner
+                                        .profileImg,
                                     width: 45.0,
                                     height: 45.0,
                                   ),
@@ -246,7 +251,8 @@ class ArtworkDetailsScreen extends StatelessWidget {
                               subject: state.getArtworkResponse.data.subject,
                               size: state.getArtworkResponse.data.size,
                             ),
-                            verticalSpace(85.0),
+                            if (state.getArtworkResponse.data.isAvailable)
+                              verticalSpace(85.0),
                           ],
                         ),
                       ),

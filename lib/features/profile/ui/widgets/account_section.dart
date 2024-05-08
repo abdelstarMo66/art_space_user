@@ -20,7 +20,9 @@ class AccountSection extends StatelessWidget {
       children: [
         BlocBuilder<ProfileCubit, ProfileStates>(
           builder: (context, state) {
-            return state is GetProfileSuccessState
+            ProfileCubit cubit = context.read<ProfileCubit>();
+
+            return cubit.profile != null
                 ? GestureDetector(
                     onTap: () => context.pushNamed(Routes.myProfile),
                     child: Row(
@@ -28,8 +30,7 @@ class AccountSection extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(40.0),
                           child: AppNetworkImage(
-                            image:
-                                state.profileResponse.data.profileImg ?? "",
+                            image: cubit.profile!.data.profileImg ?? "",
                             width: 70.0,
                             height: 70.0,
                           ),
@@ -40,14 +41,14 @@ class AccountSection extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                state.profileResponse.data.name,
+                                cubit.profile!.data.name,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyleManager.font18LightBlackBold,
                               ),
                               verticalSpace(4.0),
                               Text(
-                                state.profileResponse.data.email,
+                                cubit.profile!.data.email,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyleManager.font14LightGrayMedium,
