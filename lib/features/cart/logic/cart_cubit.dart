@@ -107,6 +107,11 @@ class CartCubit extends Cubit<CartStates> {
 
     final order = await _cartRepo.createCardOrder(
       token: SharedPreferencesManager.getData(key: PrefsManager.token),
+      currency: SharedPreferencesManager.getData(
+                  key: PrefsManager.currencyName) ==
+              "USD"
+          ? null
+          : SharedPreferencesManager.getData(key: PrefsManager.currencyName),
       cartId: cartId,
       shippingAddressId: addressId,
     );

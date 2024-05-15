@@ -21,7 +21,7 @@ class YourOrderResponse {
 
 @JsonSerializable()
 class Order {
-  final String id, paymentMethodType, orderState;
+  final String id, paymentMethodType, orderState, currency;
   final String? paidAt, deliveredAt;
   final num totalOrderPrice;
   final bool isPaid, isDelivered;
@@ -39,6 +39,7 @@ class Order {
     required this.isDelivered,
     required this.shippingAddress,
     required this.cartItems,
+    required this.currency,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);

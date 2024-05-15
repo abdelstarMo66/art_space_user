@@ -196,7 +196,7 @@ class _CheckoutSection extends State<CheckoutSection> {
                                     } else if (paymentMethod ==
                                         PaymentMethod.card) {
                                       context.pop();
-                                      widget.cubit.emitCreateCashOrderState(
+                                      widget.cubit.emitCreateCardOrderState(
                                         cartId: widget.cubit.cartId ?? "",
                                         addressId: addressId,
                                       );

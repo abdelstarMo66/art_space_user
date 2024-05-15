@@ -2,7 +2,6 @@ import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:art_space_user/core/helpers/extensions.dart';
 import 'package:art_space_user/core/helpers/spacing.dart';
 import 'package:art_space_user/core/routing/routes.dart';
-import 'package:art_space_user/core/utils/assets_manager.dart';
 import 'package:art_space_user/core/widgets/app_network_image.dart';
 import 'package:art_space_user/core/widgets/app_text_button.dart';
 import 'package:art_space_user/core/widgets/custom_app_bar.dart';
@@ -11,7 +10,6 @@ import 'package:art_space_user/features/exhibitions/logic/exhibition_cubit.dart'
 import 'package:art_space_user/features/exhibitions/logic/exhibition_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../core/theming/color_manager.dart';
@@ -66,9 +64,10 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                             buttonHeight: 55.0,
                             textStyle:
                                 TextStyleManager.font20OriginalWhiteSemiBold,
-                            onPressed: () => context.read<ExhibitionCubit>()
-                              .emitBookExhibitionState(
-                                  exhibitionId: cubit.singleExhibition!.id),
+                            onPressed: () => context
+                                .read<ExhibitionCubit>()
+                                .emitBookExhibitionState(
+                                    exhibitionId: cubit.singleExhibition!.id),
                           ),
                           secondChild: Container(
                             height: 50.0,
@@ -128,15 +127,15 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                                             .font22LightBlackBold,
                                       ),
                                     ),
-                                    IconButton(
-                                      onPressed: () {
-                                        // TODO: change icon color to yellow
-                                      },
-                                      icon: SvgPicture.asset(
-                                        AssetsManager.icNotification,
-                                        width: 32.0,
-                                      ),
-                                    ),
+                                    // IconButton(
+                                    //   onPressed: () {
+                                    //
+                                    //   },
+                                    //   icon: SvgPicture.asset(
+                                    //     AssetsManager.icNotification,
+                                    //     width: 32.0,
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                                 verticalSpace(12.0),
@@ -224,21 +223,20 @@ class ExhibitionDetailsScreen extends StatelessWidget {
                                           TextStyleManager.font20LightBlackBold,
                                     ),
                                     const Spacer(),
-                                    // TODO: show when the exhibition started and the user already booked
-                                    TextButton(
-                                      onPressed: () {},
-                                      style: TextButton.styleFrom(
-                                          backgroundColor:
-                                              ColorManager.lighterGray,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0))),
-                                      child: Text(
-                                        "launch VR Mode",
-                                        style: TextStyleManager
-                                            .font18PurpleRegular,
-                                      ),
-                                    ),
+                                    // TextButton(
+                                    //   onPressed: () {},
+                                    //   style: TextButton.styleFrom(
+                                    //       backgroundColor:
+                                    //           ColorManager.lighterGray,
+                                    //       shape: RoundedRectangleBorder(
+                                    //           borderRadius:
+                                    //               BorderRadius.circular(12.0))),
+                                    //   child: Text(
+                                    //     "launch VR Mode",
+                                    //     style: TextStyleManager
+                                    //         .font18PurpleRegular,
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                                 verticalSpace(12.0),

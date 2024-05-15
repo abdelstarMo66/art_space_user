@@ -4,7 +4,7 @@ part 'bid_auction_request_body.g.dart';
 
 @JsonSerializable()
 class BidAuctionRequestBody {
-  final num finalPrice;
+  final String finalPrice;
 
   BidAuctionRequestBody({required this.finalPrice});
 

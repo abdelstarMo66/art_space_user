@@ -16,7 +16,7 @@ class AuctionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200.0,
+      height: 215.0,
       child: GestureDetector(
         onTap: () => context.pushNamed(
           Routes.auctionDetails,

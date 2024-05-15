@@ -78,6 +78,7 @@ dependencies:
   socket_io_client: ^3.0.0-beta.2
   url_launcher: ^6.2.6
   dropdown_button2: ^2.3.9
+  currency_picker: ^2.0.21
 
 
 dev_dependencies:

@@ -71,7 +71,7 @@ class GalleryCubit extends Cubit<GalleryStates> {
 
   void emitBidAuctionState({
     required String auctionId,
-    required double bidAmount,
+    required String bidAmount,
   }) async {
     emit(BidAuctionLoadingState());
 

@@ -49,7 +49,7 @@ class GalleryRepo {
   Future<ApiResult<BidAuctionResponse>> bidAuction({
     required String token,
     required String auctionId,
-    required double bidAmount,
+    required String bidAmount,
   }) async {
     try {
       final response = await _galleryApiService.bidAuction(

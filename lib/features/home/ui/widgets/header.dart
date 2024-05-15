@@ -38,14 +38,14 @@ class Header extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            IconButton(
-              onPressed: () => context.pushNamed(Routes.notification),
-              icon: SvgPicture.asset(AssetsManager.icNotification,
-                  width: 42.0,
-                  height: 42.0,
-                  colorFilter: const ColorFilter.mode(
-                      ColorManager.dartGray, BlendMode.srcIn)),
-            ),
+            // IconButton(
+            //   onPressed: () => context.pushNamed(Routes.notification),
+            //   icon: SvgPicture.asset(AssetsManager.icNotification,
+            //       width: 42.0,
+            //       height: 42.0,
+            //       colorFilter: const ColorFilter.mode(
+            //           ColorManager.dartGray, BlendMode.srcIn)),
+            // ),
           ],
         ),
       ),

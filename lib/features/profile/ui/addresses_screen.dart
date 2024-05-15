@@ -53,14 +53,15 @@ class AddressesScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
+          ProfileCubit cubit = context.read<ProfileCubit>();
           return CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: [
-              if (state is GetAddressSuccessState) ...[
-                state.getAddressResponse.data.isNotEmpty?SliverList.builder(
-                  itemCount: state.getAddressResponse.data.length,
+              if (cubit.addresses.isNotEmpty) ...[
+                cubit.addresses.isNotEmpty?SliverList.builder(
+                  itemCount: cubit.addresses.length,
                   itemBuilder: (BuildContext context, int index) => AddressItem(
-                    address: state.getAddressResponse.data[index],
+                    address: cubit.addresses[index],
                   ),
                 ): const NoThingWidget(),
               ] else ...[

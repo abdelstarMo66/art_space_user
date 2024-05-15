@@ -1,6 +1,6 @@
 class BidModel {
   final String user;
-  final num price;
+  final String price;
 
   const BidModel({required this.user, required this.price});
 

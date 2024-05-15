@@ -1,5 +1,6 @@
 import 'package:art_space_user/core/helpers/extensions.dart';
 import 'package:art_space_user/core/utils/assets_manager.dart';
+import 'package:art_space_user/features/profile/ui/widgets/currency_widget.dart';
 import 'package:art_space_user/features/profile/ui/widgets/profile_item.dart';
 import 'package:flutter/material.dart';
 
@@ -39,17 +40,11 @@ class ContentAndActivitySection extends StatelessWidget {
           title: "App Language",
           onTap: () {},
         ),
-        ProfileItem(
-          icon: AssetsManager.icAmount,
-          title: "Currency",
-          onTap: () {},
-        ),
+        const CurrencyWidget(),
         ProfileItem(
           icon: AssetsManager.icDarkMode,
           title: "Mode",
-          onTap: () {
-
-          },
+          onTap: () {},
         ),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0),

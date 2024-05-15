@@ -1,5 +1,7 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:art_space_user/core/helpers/extensions.dart';
 import 'package:art_space_user/core/helpers/spacing.dart';
+import 'package:art_space_user/core/routing/routes.dart';
 import 'package:art_space_user/core/theming/color_manager.dart';
 import 'package:art_space_user/core/theming/text_style_manager.dart';
 import 'package:art_space_user/core/widgets/app_network_image.dart';
@@ -18,11 +20,9 @@ class CartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 175.0,
+      height: 200.0,
       child: GestureDetector(
-        onTap: () {
-          // TODO: Navigate To Details Screen
-        },
+        onTap: () => context.pushNamed(Routes.artworkDetails, arguments: product.id),
         child: Card(
           margin: const EdgeInsets.symmetric(vertical: 8.0),
           color: ColorManager.moreLightGray,
@@ -64,14 +64,12 @@ class CartItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyleManager.font24OLightBlackSemiBold,
                       ),
-                      verticalSpace(4.0),
                       Text(
                         product.owner.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyleManager.font16DarkPurpleSemiBold,
                       ),
-                      verticalSpace(4.0),
                       Row(
                         children: [
                           Text(

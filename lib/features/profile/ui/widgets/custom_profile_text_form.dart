@@ -1,3 +1,4 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -25,7 +26,6 @@ class CustomProfileTextForm extends StatelessWidget {
         onLongPress: !enabled
             ? () async {
                 await Clipboard.setData(ClipboardData(text: controller.text));
-                // TODO: show SnackBar
               }
             : null,
         child: TextFormField(

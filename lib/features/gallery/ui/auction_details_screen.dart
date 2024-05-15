@@ -245,15 +245,15 @@ class AuctionDetailsScreen extends StatelessWidget {
                                       horizontalSpace(12.0),
                                       AppElevatedButton(
                                         onPressed: () {
-                                          if (cubit.amountKey.currentState!
-                                              .validate()) {
-                                            cubit.emitBidAuctionState(
-                                              auctionId:
-                                                  cubit.thisAuction!.data.id,
-                                              bidAmount: double.parse(
-                                                  cubit.amountController.text),
-                                            );
-                                          }
+                                          cubit.emitBidAuctionState(
+                                            auctionId:
+                                            cubit.thisAuction!.data.id,
+                                            bidAmount: cubit.amountController.text,
+                                          );
+                                          // if (cubit.amountKey.currentState!
+                                          //     .validate()) {
+                                          //
+                                          // }
                                         },
                                         buttonWidth: 60.0,
                                         buttonHeight: 40.0,

@@ -43,6 +43,7 @@ abstract class CartApiService {
   @GET(ApiConstants.cardOrder)
   Future<CreateCardOrderResponse> createCardOrder({
     @Header('Authorization') required String token,
+    @Header('currency') String? currency,
     @Path("cartId") required String cartId,
     @Body() required CreateCardOrderRequestBody cardOrderRequestBody,
   });

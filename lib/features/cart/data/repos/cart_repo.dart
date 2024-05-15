@@ -68,7 +68,6 @@ class CartRepo {
       );
       return ApiResult.success(response);
     } catch (error) {
-      print(error);
       return ApiResult.failure(ErrorHandler.handle(error));
     }
   }
@@ -77,11 +76,13 @@ class CartRepo {
     required String token,
     required String cartId,
     required String shippingAddressId,
+    String? currency,
   }) async {
     try {
       final response = await _cartApiService.createCardOrder(
         token: 'Bearer $token',
         cartId: cartId,
+        currency: currency,
         cardOrderRequestBody:
             CreateCardOrderRequestBody(shippingAddress: shippingAddressId),
       );

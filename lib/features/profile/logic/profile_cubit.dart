@@ -170,6 +170,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
     response.when(
       success: (DeleteAddressResponse response) {
+        emitGetAddressesState();
         emit(DeleteAddressSuccessState(response));
       },
       failure: (ErrorHandler error) {

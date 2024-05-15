@@ -16,7 +16,7 @@ class HomeArtworkItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 205.0,
+      height: 200.0,
       child: GestureDetector(
         onTap: () => context.pushNamed(
           Routes.artworkDetails,
@@ -62,7 +62,7 @@ class HomeArtworkItem extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             artwork.title,
-                            maxLines: 2,
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyleManager.font24OLightBlackSemiBold,
                           ),
@@ -102,8 +102,12 @@ class HomeArtworkItem extends StatelessWidget {
               ),
               child: Text(
                 "💰${artwork.price.toDouble()}",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: TextStyleManager.font22LighterGraySemiBold,
+                style: TextStyleManager.font18LightBlackSemiBold.copyWith(
+                  color: ColorManager.lighterGray
+                ),
               ),
             )
           ],

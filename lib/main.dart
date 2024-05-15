@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:art_space_user/app/art_space_app.dart';
 import 'package:art_space_user/core/di/dependency_injection.dart';
+import 'package:art_space_user/core/networking/local/prefs_manager.dart';
 import 'package:art_space_user/core/networking/local/shared_preferences.dart';
 import 'package:art_space_user/core/routing/app_router.dart';
 import 'package:art_space_user/features/artworks/data/models/response/get_subject_response.dart';
@@ -25,11 +26,21 @@ Future<void> main() async {
       SharedPreferencesManager.init();
       await ScreenUtil.ensureScreenSize();
       await setupGetIt();
-      // initSocket();
       await Hive.initFlutter();
+
       Hive.registerAdapter(CategoryAdapter());
       Hive.registerAdapter(StyleAdapter());
       Hive.registerAdapter(SubjectAdapter());
+
+      if (SharedPreferencesManager.getData(key: PrefsManager.currencyName) ==
+              null ||
+          SharedPreferencesManager.getData(key: PrefsManager.currencySymbol) ==
+              null) {
+        SharedPreferencesManager.saveData(
+            key: PrefsManager.currencyName, value: "USD");
+        SharedPreferencesManager.saveData(
+            key: PrefsManager.currencySymbol, value: "\$");
+      }
 
       SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(
