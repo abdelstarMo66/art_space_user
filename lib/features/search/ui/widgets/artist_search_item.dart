@@ -31,12 +31,12 @@ class ArtistSearchItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(40.0),
               child: AppNetworkImage(
                 image: artist.profileImg ?? "",
-                width: 60.0,
-                height: 60.0,
+                width: 55.0,
+                height: 55.0,
               ),
             ),
             horizontalSpace(8.0),
-            Text(artist.name, style: TextStyleManager.font24PurpleSemiBold)
+            Text(artist.name, style: TextStyleManager.font22LighterGraySemiBold.copyWith(color: ColorManager.purple,),)
           ],
         ),
       ),

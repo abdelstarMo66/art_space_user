@@ -28,7 +28,7 @@ class HomeArtworkItem extends StatelessWidget {
             Card(
               margin: const EdgeInsets.symmetric(vertical: 8.0),
               color: ColorManager.moreLightGray,
-              elevation: 0.2,
+              elevation: 0.3,
               shadowColor: ColorManager.transparent,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0)),
@@ -90,23 +90,26 @@ class HomeArtworkItem extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
+            Card(
               margin: const EdgeInsetsDirectional.only(bottom: 8.0),
-              padding: const EdgeInsets.symmetric(vertical: 1.0),
-              width: MediaQuery.sizeOf(context).width / 3.42,
-              decoration: const BoxDecoration(
-                color: ColorManager.dartPurple,
+              elevation: 0.3,
+              color: ColorManager.moreLightGray,
+              shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadiusDirectional.only(
                   bottomStart: Radius.circular(12.0),
                 ),
               ),
-              child: Text(
-                "💰${artwork.price.toDouble()}",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                style: TextStyleManager.font18LightBlackSemiBold.copyWith(
-                  color: ColorManager.lighterGray
+              child: Container(
+                width: MediaQuery.sizeOf(context).width / 3.39,
+                padding: const EdgeInsets.symmetric(vertical: 1.0),
+                child: Text(
+                  "💰 ${artwork.price.toDouble()}",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: TextStyleManager.font18LightBlackSemiBold.copyWith(
+                    color: ColorManager.dartPurple,
+                  ),
                 ),
               ),
             )

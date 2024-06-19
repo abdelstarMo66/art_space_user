@@ -11,6 +11,7 @@ import 'package:art_space_user/features/artworks/ui/widgets/artwork_details_imag
 import 'package:art_space_user/features/artworks/ui/widgets/artwork_details_type_item.dart';
 import 'package:art_space_user/features/cart/logic/cart_cubit.dart';
 import 'package:art_space_user/features/cart/logic/cart_states.dart';
+import 'package:art_space_user/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -34,41 +35,42 @@ class ArtworkDetailsScreen extends StatelessWidget {
         return Scaffold(
           appBar: CustomAppBar(
             actions: [
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      backgroundColor: ColorManager.gold.withOpacity(0.12)),
-                  child: Stack(
-                    children: [
-                      // TODO: remove this if account is gold
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 18.0, vertical: 8.0),
-                        child: Text(
-                          "Try AR Mode",
-                          style: TextStyleManager.font20OriginalWhiteSemiBold
-                              .copyWith(
-                            color: ColorManager.gold,
+              if (arSupport)
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: TextButton(
+                    onPressed: () => context.pushNamed(Routes.arPreview),
+                    style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        backgroundColor: ColorManager.gold.withOpacity(0.12)),
+                    child: Stack(
+                      children: [
+                        // TODO: remove this if account is gold
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 18.0, vertical: 8.0),
+                          child: Text(
+                            "Try AR Mode",
+                            style: TextStyleManager.font20OriginalWhiteSemiBold
+                                .copyWith(
+                              color: ColorManager.gold,
+                            ),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        right: 0,
-                        child: Transform.rotate(
-                          angle: 0.698131701,
-                          child: SvgPicture.asset(AssetsManager.icQueen),
+                        Positioned(
+                          right: 0,
+                          child: Transform.rotate(
+                            angle: 0.698131701,
+                            child: SvgPicture.asset(AssetsManager.icQueen),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              )
+                )
             ],
           ),
           bottomSheet: state is GetArtworkSuccess

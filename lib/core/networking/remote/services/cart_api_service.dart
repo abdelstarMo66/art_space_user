@@ -40,7 +40,7 @@ abstract class CartApiService {
     @Body() required CreateCashOrderRequestBody cashOrderRequestBody,
   });
 
-  @GET(ApiConstants.cardOrder)
+  @POST(ApiConstants.cardOrder)
   Future<CreateCardOrderResponse> createCardOrder({
     @Header('Authorization') required String token,
     @Header('currency') String? currency,

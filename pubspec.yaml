@@ -79,6 +79,8 @@ dependencies:
   url_launcher: ^6.2.6
   dropdown_button2: ^2.3.9
   currency_picker: ^2.0.21
+  model_viewer_plus: ^1.7.2
+  animated_theme_switcher: ^2.0.10
 
 
 dev_dependencies:
@@ -108,6 +110,7 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/gifs/
+    - assets/glbs/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

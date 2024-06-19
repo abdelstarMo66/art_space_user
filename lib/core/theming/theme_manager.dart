@@ -11,5 +11,12 @@ class ThemeManager {
     ),
   );
 
-  static ThemeData getDarkTheme() => ThemeData();
+  static ThemeData getDarkTheme() => ThemeData(
+    scaffoldBackgroundColor: DarkColorManager.scaffold,
+    appBarTheme: const AppBarTheme(
+      elevation: 0.0,
+      scrolledUnderElevation: 0,
+      backgroundColor: ColorManager.transparent,
+    ),
+  );
 }

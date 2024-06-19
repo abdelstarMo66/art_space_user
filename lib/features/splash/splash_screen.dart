@@ -59,12 +59,21 @@ class _SplashScreenState extends State<SplashScreen>
 
           if (isOnboarding != null) {
             if (token != null) {
-              context.pushReplacementNamed(Routes.bottomNavigationBar);
+              context.pushNamedAndRemoveUntil(
+                Routes.bottomNavigationBar,
+                predicate: (_) => false,
+              );
             } else {
-              context.pushReplacementNamed(Routes.login);
+              context.pushNamedAndRemoveUntil(
+                Routes.login,
+                predicate: (_) => false,
+              );
             }
           } else {
-            context.pushReplacementNamed(Routes.onboarding);
+            context.pushNamedAndRemoveUntil(
+              Routes.onboarding,
+              predicate: (_) => false,
+            );
           }
         });
       });

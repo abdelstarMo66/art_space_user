@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:art_space_user/app/art_space_app.dart';
 import 'package:art_space_user/core/di/dependency_injection.dart';
 import 'package:art_space_user/core/networking/local/prefs_manager.dart';
@@ -17,6 +18,8 @@ import 'core/theming/color_manager.dart';
 import 'features/artworks/data/models/response/get_category_response.dart';
 import 'features/artworks/data/models/response/get_style_response.dart';
 
+bool arSupport = false;
+
 Future<void> main() async {
   await runZonedGuarded(
     () async {
@@ -27,6 +30,7 @@ Future<void> main() async {
       await ScreenUtil.ensureScreenSize();
       await setupGetIt();
       await Hive.initFlutter();
+      arSupport = await ArCoreController.checkArCoreAvailability() && await ArCoreController.checkIsArCoreInstalled();
 
       Hive.registerAdapter(CategoryAdapter());
       Hive.registerAdapter(StyleAdapter());
